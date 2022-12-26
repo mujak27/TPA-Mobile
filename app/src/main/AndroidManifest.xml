@@ -10,6 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beefood">
         <activity
+            android:name=".user.Checkout"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".user.RestaurantDetail"
             android:exported="false">
             <meta-data

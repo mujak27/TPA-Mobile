@@ -3,7 +3,6 @@ package edu.bluejack22_1.beefood.model
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -50,14 +49,27 @@ class ClassRestaurant(
 //            Log.d("restaurantSnapshot", restaurantSnapshot.toString())
         }
 
-        suspend fun getRestaurantWithBiggestRating(limit : Long, offset : Long) : ArrayList<ClassRestaurant>{
+        suspend fun getRestaurantWithBiggestRating(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
+            Log.d("inf scroll", "getRestaurantWithBiggestRating: " + threshold + " " + offset + " " + lastId)
 
-            var restaurantsSnapshot = db.collection("restaurants")
+            var restaurantQuery = db.collection("restaurants")
                 .orderBy("rating", Query.Direction.DESCENDING)
-//                .startAt(offset)
-//                .limit(limit)
+
+            if(offset > 0){
+
+                var cursor = db.collection("restaurants").document(lastId).get().await()
+                Log.d("inf scroll", cursor.toString())
+
+                restaurantQuery = restaurantQuery
+                    .startAfter(cursor)
+            }
+
+
+            var restaurantsSnapshot = restaurantQuery
+                .limit(threshold)
                 .get()
                 .await()
+
             var restaurants : ArrayList<ClassRestaurant> = ArrayList()
             for(restaurantSnapshot in restaurantsSnapshot){
                 restaurants.add(

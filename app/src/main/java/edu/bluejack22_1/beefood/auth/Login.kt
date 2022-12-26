@@ -50,15 +50,7 @@ class Login : AppCompatActivity() {
         startActivity(intent)
     }
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        runBlocking {
-            Log.d("rest", "start resta")
-            ClassRestaurant.getRestaurantWithBiggestRating(3, 0)
-            Log.d("rest", "end resta")
-        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_auth_login)
         loginButton = findViewById<Button>(R.id.loginButton)
