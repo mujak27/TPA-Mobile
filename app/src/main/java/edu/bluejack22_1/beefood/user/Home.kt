@@ -39,7 +39,6 @@ class Home : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 loadMore()
-
             }
         })
     }

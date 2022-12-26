@@ -32,15 +32,15 @@
             android:layout_marginTop="100dp">
 
             <EditText
-                android:id="@+id/input_email"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:inputType="text"/>
-            <EditText
                 android:id="@+id/input_name"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:inputType="textEmailAddress"/>
+            <EditText
+                android:id="@+id/input_email"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="text"/>
             <EditText
                 android:id="@+id/input_pass"
                 android:layout_height="wrap_content"

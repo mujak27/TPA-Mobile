@@ -10,21 +10,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beefood">
         <activity
-            android:name=".Search"
+            android:name=".user.RestaurantDetail"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Reset"
+            android:name=".user.Search"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Forget"
+            android:name=".auth.Reset"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".auth.Forgot"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

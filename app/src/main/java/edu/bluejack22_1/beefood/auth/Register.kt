@@ -26,7 +26,7 @@ class Register : AppCompatActivity() {
 
     suspend fun onRegister(){
         var name = findViewById<EditText>(R.id.input_email).text.toString()
-        var email = findViewById<EditText>(R.id.input_email).text.toString()
+        var email = findViewById<EditText>(R.id.input_name).text.toString()
         var pass = findViewById<EditText>(R.id.input_pass).text.toString()
 
         if(name.length == 0 || email.length == 0 || pass.length == 0){
