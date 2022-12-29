@@ -22,6 +22,7 @@ class Login : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var loginButton : Button
     lateinit var redirectRegisterButton : Button
+    lateinit var redirectForgotButton : Button
     lateinit var errorText : TextView
     val Req_Code:Int=123 // get from
     val firebaseAuth= FirebaseAuth.getInstance()
@@ -50,12 +51,17 @@ class Login : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun onRedirectForgot(){
+        val intent = Intent(this, Forgot::class.java)
+        startActivity(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_auth_login)
         loginButton = findViewById<Button>(R.id.loginButton)
-        redirectRegisterButton = findViewById<Button>(R.id.redirectRegisterButton)
-        redirectRegisterButton.setOnClickListener{onRedirectRegister()}
+        findViewById<Button>(R.id.redirectRegisterButton).setOnClickListener{onRedirectRegister()}
+        findViewById<Button>(R.id.redirectForgotButton).setOnClickListener{onRedirectForgot()}
         errorText = findViewById<Button>(R.id.error_text)
         loginButton.setOnClickListener{ onLogin()}
     }

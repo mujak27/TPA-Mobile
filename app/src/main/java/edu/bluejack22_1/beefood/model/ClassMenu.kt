@@ -30,6 +30,8 @@ class ClassMenu(
         }
 
         fun menuFromSnapshot(menuSnapshot : DocumentSnapshot) : ClassMenu{
+            Log.d("menu snapshot", menuSnapshot.toString())
+            Log.d("menu snapshot data", menuSnapshot.data.toString())
             return ClassMenu(
                 menuSnapshot.id,
                 menuSnapshot.data?.get("name").toString(),
@@ -38,13 +40,6 @@ class ClassMenu(
                 menuSnapshot.data?.get("desc").toString(),
             )
         }
-
-//        suspend fun getMenuById(id : String): ClassRestaurant{
-//
-//            var restaurantSnapshot = db.collection("restaurants").document(id).get().await()
-//            var restaurant = restaurantFromSnapshot(restaurantSnapshot)
-//            return restaurant
-//        }
 
         suspend fun getMenusFromRestaurantId(restaurantId : String) : ArrayList<ClassMenu>{
 
@@ -55,6 +50,12 @@ class ClassMenu(
             }
 
             return menus;
+        }
+
+        suspend fun getMenuById(restaurantId: String, menuId : String) : ClassMenu{
+            Log.d("get menu restaurant", restaurantId + " " + menuId)
+            val menuSnapshot = db.collection("restaurants").document(restaurantId).collection("menus").document(menuId).get().await()
+            return menuFromSnapshot(menuSnapshot)
         }
 
     }

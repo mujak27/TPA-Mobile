@@ -1,7 +1,9 @@
 package edu.bluejack22_1.beefood.user
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +16,6 @@ import kotlinx.coroutines.runBlocking
 class Home : AppCompatActivity() {
 
     private lateinit var restaurantsRecycler : RecyclerView
-    private lateinit var newArrList: List<ClassRestaurant>
-
 
     lateinit var loadingText : TextView
 
@@ -26,23 +26,7 @@ class Home : AppCompatActivity() {
     var linearLayoutManager = LinearLayoutManager(this)
     var restaurants : ArrayList<ClassRestaurant> = arrayListOf()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_user_home)
-        loadingText = findViewById<TextView>(R.id.loadingText)
-        restaurantsRecycler = findViewById(R.id.recyclerViewRestaurant)
-        restaurantsRecycler.layoutManager = linearLayoutManager
-        restaurantsRecycler.setHasFixedSize(true)
 
-        loadMore()
-        restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
-        restaurantsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                loadMore()
-            }
-        })
-    }
     private fun loadMore() {
         Log.d("layout visible index ", linearLayoutManager.findLastCompletelyVisibleItemPosition().toString())
         Log.d("rest size ", restaurants.size.toString())
@@ -65,5 +49,36 @@ class Home : AppCompatActivity() {
             isLoading = false
             loadingText.setText("")
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.layout_user_home)
+        loadingText = findViewById<TextView>(R.id.loadingText)
+        restaurantsRecycler = findViewById(R.id.recyclerViewRestaurant)
+        restaurantsRecycler.layoutManager = linearLayoutManager
+        restaurantsRecycler.setHasFixedSize(true)
+
+        loadMore()
+        restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
+        restaurantsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                loadMore()
+            }
+        })
+        findViewById<Button>(R.id.transactions).setOnClickListener{
+            val intent = Intent(this, Transactions::class.java)
+            this.startActivity(intent)
+        }
+        findViewById<Button>(R.id.searchButton).setOnClickListener{
+            val intent = Intent(this, Search::class.java)
+            this.startActivity(intent)
+        }
+        findViewById<Button>(R.id.buttonProfile).setOnClickListener{
+            val intent = Intent(this, Profile::class.java)
+            this.startActivity(intent)
+        }
+
     }
 }

@@ -50,6 +50,7 @@ class RestaurantDetail : AppCompatActivity() {
     fun onCheckout(){
         if(carts.size == 0) return
         val intent = Intent(this, Checkout::class.java)
+        intent.putExtra("restaurantId", restaurantId)
         intent.putExtra("carts", carts)
         this.startActivity(intent)
     }

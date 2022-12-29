@@ -40,13 +40,44 @@ class ClassRestaurant(
             )
         }
 
-        suspend fun getRestaurantById(id : String): ClassRestaurant{
+        suspend fun getRestaurantByName(name : String, threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
 
+            Log.d("inf scroll", "getRestaurantbyname : " + threshold + " " + offset + " " + lastId)
+
+            var restaurantQuery = db.collection("restaurants")
+                .orderBy("name")
+
+//            if(offset > 0){
+//
+//                var cursor = db.collection("restaurants").document(lastId).get().await()
+//                Log.d("inf scroll cursor", cursor.toString())
+//
+//                restaurantQuery = restaurantQuery
+//                    .startAfter(cursor)
+//            }
+
+            var restaurantsSnapshot = restaurantQuery
+//                .limit(threshold)
+                .limit(threshold+offset)
+                .startAt(name)
+                .endAt(name + '\uf8ff')
+                .get()
+                .await()
+
+            var restaurants : ArrayList<ClassRestaurant> = ArrayList()
+            for(restaurantSnapshot in restaurantsSnapshot){
+                Log.d("restaurant", restaurantSnapshot.toString())
+                restaurants.add(
+                    restaurantFromSnapshot(restaurantSnapshot)
+                )
+            }
+            return restaurants
+        }
+
+        suspend fun getRestaurantById(id : String): ClassRestaurant{
             var restaurantSnapshot = db.collection("restaurants").document(id).get().await()
             var restaurant = restaurantFromSnapshot(restaurantSnapshot)
-            Log.d("restaurant", restaurant.toString())
             return restaurant
-//            Log.d("restaurantSnapshot", restaurantSnapshot.toString())
         }
 
         suspend fun getRestaurantWithBiggestRating(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
@@ -63,7 +94,6 @@ class ClassRestaurant(
                 restaurantQuery = restaurantQuery
                     .startAfter(cursor)
             }
-
 
             var restaurantsSnapshot = restaurantQuery
                 .limit(threshold)
