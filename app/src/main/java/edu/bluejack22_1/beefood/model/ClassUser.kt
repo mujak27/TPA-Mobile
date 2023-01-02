@@ -45,15 +45,22 @@ class ClassUser (
             this.staticUser = user
         }
 
-        fun getUserByEmail(email :  String) =
-            db.collection("users")
+        suspend fun getUserByEmail(email :  String) : ClassUser {
+
+            var userSnapshot = db.collection("users")
             .whereEqualTo("email", email)
-            .limit(1)
-            .get()
+                .limit(1)
+                .get().await()
+            Log.d("google login get user by email", userSnapshot.documents.toString())
+            Log.d("google login get user by email", userSnapshot.documents.get(0).toString())
+            Log.d("google login get user by email", userSnapshot.documents.get(0).data.toString())
+            var user = userFromHashmap(userSnapshot.documents.get(0).data as kotlin.collections.HashMap<String, *>)
+            return user
+        }
 
         suspend fun isEmailExist(email : String) : Boolean {
-            val users = getUserByEmail(email).await()
-            return !users.isEmpty
+            val users = getUserByEmail(email)
+            return users != null
         }
 
         suspend fun getUserById(id : String): ClassUser{
@@ -62,8 +69,8 @@ class ClassUser (
             return user
         }
 
-
         suspend fun registerUser(email : String, name : String, pass : String) : Boolean{
+            Log.d("register email name", email + " " + name)
             var userId = UUID.randomUUID().toString()
             val user = ClassUser(userId, email, name, "", pass, "Customer")
             var valid = true
@@ -72,27 +79,45 @@ class ClassUser (
                 .addOnFailureListener { valid=false }
                 .await()
             setUser(user)
+            auth.createUserWithEmailAndPassword(email, pass).await()
             return valid
         }
 
         fun loginUser(email : String, pass : String) : Boolean{
             var valid = false
+            Log.d("login", email + " " + pass)
+            runBlocking {
+                try {
+                    var x = auth.signInWithEmailAndPassword(email, pass).await()
+                    Log.d("user x", x.toString())
+                    Log.d("user", x.user.toString())
+                    valid = true
+                }catch (e : Exception){
+                    valid = false
+                }
+            }
             runBlocking {
                 var users = db.collection("users")
                     .whereEqualTo("email", email)
                     .whereEqualTo("pass", pass)
                     .get().await()
-                valid = !users.isEmpty
                 if(users.isEmpty){
-                    Log.d("loginResult", "not found")
                 }else{
-                    Log.d("loginResult", "found")
                     setUser(userFromHashmap(users.documents.get(0).data as HashMap<String, *>))
 
                 }
             }
-            Log.d("valid", if (valid) "true" else "false")
             return valid
+        }
+
+        fun googleLogin(email: String){
+            Log.d("google login auth", auth.currentUser?.email.toString())
+            if(runBlocking { isEmailExist(email) } ){
+                // email has registered before
+
+            }else{
+                // new account
+            }
         }
 
         fun updateUser(name : String, desc : String){
@@ -108,6 +133,10 @@ class ClassUser (
         }
 
         fun redirectToHomeBasedOnUserRole() : Class<*>{
+            val authEmail = auth.currentUser?.email.toString()
+            if(authEmail!=""){
+                staticUser = runBlocking { getUserByEmail(authEmail) }
+            }
             if(staticUser == null) {
                 Log.d("role", "null")
                 return Login::class.java
@@ -124,42 +153,10 @@ class ClassUser (
         }
 
 
-        public fun sendForgotPasswordEmail(email: String, context : Context) {
+        public fun sendForgotPasswordEmail(email: String) {
+//            auth.signInWithCredential()
+            auth.sendPasswordResetEmail(email)
 
-            var resetId = UUID.randomUUID().toString()
-            db.collection("resets").document(resetId).set(
-                hashMapOf(
-                    "email" to email
-                )
-            )
-
-            var resetLink = "http://www.beefood-app.com/reset/" + resetId
-
-            /*ACTION_SEND action to launch an email client installed on your Android device.*/
-            val mIntent = Intent(Intent.ACTION_SEND)
-            /*To send an email you need to specify mailto: as URI using setData() method
-            and data type will be to text/plain using setType() method*/
-            mIntent.data = Uri.parse("mailto:")
-            mIntent.type = "text/plain"
-            // put recipient email in intent
-            /* recipient is put as array because you may wanna send email to multiple emails
-               so enter comma(,) separated emails, it will be stored in array*/
-            mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-            //put the Subject in the intent
-            mIntent.putExtra(Intent.EXTRA_SUBJECT, "reset password")
-            //put the message in the intent
-            mIntent.putExtra(Intent.EXTRA_TEXT, "resetLink")
-
-
-            try {
-                //start email intent
-                context.startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
-            }
-            catch (e: Exception){
-                //if any thing goes wrong for example no email client application or any exception
-                //get and show exception message
-                Log.d("error", e.toString())
-            }
 
         }
     }

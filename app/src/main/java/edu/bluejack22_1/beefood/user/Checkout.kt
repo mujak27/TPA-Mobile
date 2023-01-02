@@ -83,19 +83,19 @@ class Checkout : AppCompatActivity() {
         }
 
 
-        widgetCamera.setOnClickListener(object : OnClickListener {
-            override fun onClick(v: View?) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.CAMERA),
-                        MY_CAMERA_PERMISSION_CODE
-                    )
-                } else {
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST)
-                }
-            }
-        })
+//        widgetCamera.setOnClickListener(object : OnClickListener {
+//            override fun onClick(v: View?) {
+//                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    requestPermissions(
+//                        arrayOf(Manifest.permission.CAMERA),
+//                        MY_CAMERA_PERMISSION_CODE
+//                    )
+//                } else {
+//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                    startActivityForResult(cameraIntent, CAMERA_REQUEST)
+//                }
+//            }
+//        })
     }
     private fun takePicture(){
         val pictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)

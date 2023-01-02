@@ -1,5 +1,11 @@
 package edu.bluejack22_1.beefood.user
 
+import android.app.AlarmManager
+import android.app.AlertDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.adapter.RestaurantItemAdapter
+import edu.bluejack22_1.beefood.helper.*
 import edu.bluejack22_1.beefood.model.ClassRestaurant
 import kotlinx.coroutines.runBlocking
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Home : AppCompatActivity() {
 
@@ -58,6 +67,8 @@ class Home : AppCompatActivity() {
         restaurantsRecycler = findViewById(R.id.recyclerViewRestaurant)
         restaurantsRecycler.layoutManager = linearLayoutManager
         restaurantsRecycler.setHasFixedSize(true)
+        createNotificationChannel()
+        scheduleNotification()
 
         loadMore()
         restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
@@ -81,4 +92,46 @@ class Home : AppCompatActivity() {
         }
 
     }
+
+
+    private fun scheduleNotification()
+    {
+        Log.d("notif", "schedule called")
+        val intent = Intent(applicationContext, Notification::class.java)
+        val title = "beefood notification"
+        val message = "order your food"
+        intent.putExtra(titleExtra, title)
+        intent.putExtra(messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        var date = Calendar.getInstance()
+        date.set(2023, 1, 2, 13, 39, 1)
+        var timestamp = date.timeInMillis
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            timestamp,
+            pendingIntent
+        )
+
+
+    }
+
+    private fun createNotificationChannel() {
+        val name = "Notif Channel"
+        val desc = "A Description of the channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelID, name, importance)
+        channel.description = desc
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
 }

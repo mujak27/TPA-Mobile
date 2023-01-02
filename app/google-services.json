@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:447661352312:android:a2b2686737ac739a7e948d",
+        "mobilesdk_app_id": "1:447661352312:android:cc4044e53796e4a67e948d",
         "android_client_info": {
           "package_name": "edu.bluejack22_1.beefood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "447661352312-fptnpn0tdkh0q5o4tnteql8is9u3atcl.apps.googleusercontent.com",
+          "client_id": "447661352312-ttpmt93ut34tadn9k8135m6prm0vs4je.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "edu.bluejack22_1.beefood",

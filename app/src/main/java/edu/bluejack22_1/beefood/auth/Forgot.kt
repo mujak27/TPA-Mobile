@@ -32,8 +32,9 @@ class Forgot : AppCompatActivity() {
             widgetErrorText.setText("email not found")
             return
         }
-        widgetErrorText.setText("found")
-        ClassUser.sendForgotPasswordEmail(email, this)
+        widgetErrorText.setText("email sent")
+        ClassUser.sendForgotPasswordEmail(email)
+        onRedirectLogin()
 
     }
 

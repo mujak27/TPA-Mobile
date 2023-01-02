@@ -14,20 +14,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="profile"
+            android:text="@string/update"
             android:id="@+id/buttonProfile"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="transactions"
+            android:text="@string/transactions"
             android:id="@+id/transactions"
             />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="search"
+            android:text="@string/search"
             android:id="@+id/searchButton"
             />
         <androidx.recyclerview.widget.RecyclerView

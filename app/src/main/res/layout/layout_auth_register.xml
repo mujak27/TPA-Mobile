@@ -31,16 +31,32 @@
             android:orientation="vertical"
             android:layout_marginTop="100dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                />
             <EditText
                 android:id="@+id/input_name"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email"
+                />
             <EditText
                 android:id="@+id/input_email"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:inputType="text"/>
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pass"
+                />
             <EditText
                 android:id="@+id/input_pass"
                 android:layout_height="wrap_content"

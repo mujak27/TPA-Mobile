@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">beefood</string>
+    <string name="transactions">transaksi</string>
+    <string name="search">cari</string>
+    <string name="update">perbarui</string>
+
+    <string name="not_found">tidak ketemu</string>
+    <string name="has_an_account">sudah memiliki account?</string>
+    <string name="forgot_your_password">lupa password?</string>
+
+
+</resources>
