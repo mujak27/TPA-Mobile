@@ -1,11 +1,13 @@
 package edu.bluejack22_1.beefood.user
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -60,7 +62,10 @@ class SenderProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sender_profile)
         setTextProfile()
-
+        findViewById<Button>(R.id.redirect_edit).setOnClickListener{
+            val intent = Intent(this, SenderProfileEdit::class.java)
+            this.startActivity(intent)
+        }
 
     }
 }

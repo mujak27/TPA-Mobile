@@ -55,6 +55,7 @@
                     android:text="@string/sender_description_here"/>
 
                 <Button
+                    android:id="@+id/redirect_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/edit_profile" />

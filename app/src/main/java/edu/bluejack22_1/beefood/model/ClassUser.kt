@@ -9,20 +9,21 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import edu.bluejack22_1.beefood.auth.Login
 import edu.bluejack22_1.beefood.user.Home
+import edu.bluejack22_1.beefood.user.SenderProfile
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import kotlin.collections.HashMap
 
 class ClassUser (
-        var id : String,
-        var email : String,
-        var name : String,
-        var desc : String,
-        var pass : String,
-        var role : String,
-        var pictureLink : String,
-    ) {
+    var id : String,
+    var email : String,
+    var name : String,
+    var desc : String,
+    var pass : String,
+    var role : String,
+    var pictureLink : String,
+) {
 
     companion object {
         val db = Firebase.firestore
@@ -50,7 +51,7 @@ class ClassUser (
         suspend fun getUserByEmail(email :  String) : ClassUser {
 
             var userSnapshot = db.collection("users")
-            .whereEqualTo("email", email)
+                .whereEqualTo("email", email)
                 .limit(1)
                 .get().await()
             var user = userFromHashmap(userSnapshot.documents.get(0).data as kotlin.collections.HashMap<String, *>)
@@ -148,6 +149,12 @@ class ClassUser (
             if(staticUser!!.role == "Customer"){
                 Log.d("role", "customer")
                 return Home::class.java
+            } else if(staticUser!!.role=="Sender"){
+                Log.d("role","Sender")
+                return SenderProfile::class.java
+            }else if(staticUser!!.role=="Seller"){
+                Log.d("role","Seller")
+//                return SenderProfile::class.java
             }
             else{
                 Log.d("role", "else")
