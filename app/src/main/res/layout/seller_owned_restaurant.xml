@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/outer_seller_res_container"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:background="@color/pink_primary">
+
+                <LinearLayout
+                    android:id="@+id/inside_search_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp">
+
+
+                    <Button
+                        android:id="@+id/seller_search_res"
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:background="@color/pink_p_darker"
+                        android:backgroundTint="@color/pink_p_darker"
+                        android:backgroundTintMode="screen"
+                        android:shadowColor="@color/pink_p_darker"
+                        android:text="Search"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:layout_width="320dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp"
+                        android:hint="@string/search"
+                        android:layout_marginStart="15dp"
+                        android:background="@color/white"
+                        android:paddingStart="20dp"
+                        android:layout_marginTop="2dp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Owned Restaurant"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Restaurant Name here"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rating here"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+        </LinearLayout>
+
+<!--    <ListView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="80dp"-->
+<!--        android:layout_marginBottom="80dp">-->
+
+<!--    </ListView>-->
+
+</RelativeLayout>
