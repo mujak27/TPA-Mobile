@@ -103,7 +103,9 @@ class ClassUser (
                     Log.d("user x", x.toString())
                     Log.d("user", x.user.toString())
                     valid = true
+                    Log.d("login", "auth found")
                 }catch (e : Exception){
+                    Log.d("login", "auth not found")
                     valid = false
                 }
             }

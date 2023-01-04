@@ -37,6 +37,7 @@ class Login : AppCompatActivity() {
     val auth = Firebase.auth
 
     fun onLogin(){
+        if(auth.currentUser != null) auth.signOut()
         var email = findViewById<EditText>(R.id.input_email).text.toString()
         var pass = findViewById<EditText>(R.id.input_pass).text.toString()
         Log.d("name", email)
@@ -119,6 +120,7 @@ class Login : AppCompatActivity() {
 
 
     private fun firebaseAuthWithGoogle(idToken: String){
+        if(auth.currentUser != null) auth.signOut()
         Log.d("google login firebase auth", "called")
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this){task->
@@ -135,12 +137,10 @@ class Login : AppCompatActivity() {
                         startActivity(intent)
                     }
                 }
+                ClassUser.setUser( runBlocking { ClassUser.getUserByEmail(user?.email.toString()) })
                 updateUI()
             }
             else{
-//                Toast.makeText(baseContext, getString(R.string.authentication_failed),
-//                    Toast.LENGTH_SHORT).show()
-//                updateUI()
                 Log.d("google login", "failed")
             }
 
