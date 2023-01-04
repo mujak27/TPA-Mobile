@@ -18,8 +18,7 @@
             <Button
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                />
-            <!--                android:text="@string/busy"-->
+                android:text="@string/busy"/>
             <Button
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
@@ -29,8 +28,7 @@
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                />
-            <!--                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"-->
+                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
 
         </LinearLayout>
         <LinearLayout
@@ -46,8 +44,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    />
-                <!--                    android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"-->
+                    android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,18 +52,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
-                    <!--                        android:text="@string/restaurant_name"-->
+                        android:text="@string/restaurant_name"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
-                    <!--                        android:text="@string/status"-->
+                        android:text="@string/status"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
-                    <!--                        android:text="@string/status_here"-->
+                        android:text="@string/status_here"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

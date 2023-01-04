@@ -38,7 +38,6 @@
             android:id="@+id/edit_upload_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
             android:text="@string/upload_image"/>
         <TextView
             android:id="@+id/error_edit"
@@ -48,7 +47,6 @@
 =======
             />
         <!--            android:text="@string/upload_image"-->
->>>>>>> 891b632685923fd8b06c96f053cc75b78f61870a
         <Button
             android:id="@+id/sender_edit_profile_button"
             android:layout_width="wrap_content"

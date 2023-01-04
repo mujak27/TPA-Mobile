@@ -13,14 +13,28 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="185dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Ongoing"/>
+                <Button
+                    android:layout_width="185dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Past"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_marginTop="20dp">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                />
-                <!--                    android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"-->
+                    android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,21 +57,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Action"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="horizontal">
-                <Button
-                    android:layout_width="185dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Ongoing"/>
-                <Button
-                    android:layout_width="185dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Past"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
