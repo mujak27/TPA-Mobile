@@ -23,13 +23,13 @@
 
                 </Button>
             </LinearLayout>
-            <ImageView
-                android:id="@+id/sender_profile_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:textAlignment="center"
-                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250">
-            </ImageView>
+<!--            <ImageView-->
+<!--                android:id="@+id/sender_profile_pic"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="150dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250">-->
+<!--            </ImageView>-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,27 +38,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/name" />
+                    />
                 <TextView
                     android:id="@+id/profile_sender_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sender_name"/>
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/description"/>
+                    />
                 <TextView
                     android:id="@+id/profile_sender_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sender_description_here"/>
+                    />
 
                 <Button
                     android:id="@+id/redirect_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_profile" />
+                    />
             </LinearLayout>
         </LinearLayout>
 

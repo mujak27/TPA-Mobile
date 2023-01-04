@@ -59,7 +59,8 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
+                        />
+<!--                    android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
