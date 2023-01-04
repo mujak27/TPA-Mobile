@@ -47,7 +47,6 @@ class ClassUser (
         fun setUser(user : ClassUser){
             this.staticUser = user
         }
-
         suspend fun getUserByEmail(email :  String) : ClassUser {
 
             var userSnapshot = db.collection("users")
