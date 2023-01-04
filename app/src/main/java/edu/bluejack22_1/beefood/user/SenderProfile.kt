@@ -22,7 +22,7 @@ class SenderProfile : AppCompatActivity() {
 
     val user=ClassUser.getCurrentUser()
     var image: Bitmap? = null
-    val url = user?.pic.toString()
+    val url = user?.pictureLink.toString()
 
     fun setTextProfile(){
         val name : TextView = findViewById<TextView>(R.id.profile_sender_name)
