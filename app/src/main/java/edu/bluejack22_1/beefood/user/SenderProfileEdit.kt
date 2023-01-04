@@ -110,7 +110,7 @@ class SenderProfileEdit : AppCompatActivity() {
             var name = findViewById<EditText>(R.id.edit_profile_name).text.toString()
             var desc = findViewById<EditText>(R.id.edit_profile_desc).text.toString()
             var pL = findViewById<EditText>(R.id.edit_picLink).text.toString()
-            if(name != "" || desc != ""){
+            if(name != "" && desc != ""){
                 var pictureLink = ClassUser.getCurrentUser()?.pictureLink!!
                 ClassUser.updateUser(name, desc, pL)
                 ClassUser.staticUser?.pictureLink = pL
