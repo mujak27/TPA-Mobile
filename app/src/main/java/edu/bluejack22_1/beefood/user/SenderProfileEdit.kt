@@ -11,7 +11,7 @@ class SenderProfileEdit : AppCompatActivity() {
 
     val user= ClassUser.getCurrentUser()
     var image: Bitmap? = null
-    val url = user?.pic.toString()
+    val url = user?.pictureLink.toString()
 
     fun setInitValue(){
         val name : EditText = findViewById(R.id.edit_profile_name)

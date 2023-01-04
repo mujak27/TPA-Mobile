@@ -19,24 +19,35 @@
             android:layout_height="wrap_content"
             android:text="@string/name"/>
         <EditText
+            android:id="@+id/edit_profile_name"
             android:layout_width="250dp"
             android:layout_height="wrap_content"/>
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"/>
         <EditText
+            android:id="@+id/edit_profile_desc"
             android:layout_width="250dp"
             android:layout_height="wrap_content"/>
         <ImageView
+            android:id="@+id/edit_profile_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
         <Button
+            android:id="@+id/edit_upload_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upload_image"/>
+        <TextView
+            android:id="@+id/error_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fill all the blanks"/>
         <Button
+            android:id="@+id/sender_edit_profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit_profile"/>
