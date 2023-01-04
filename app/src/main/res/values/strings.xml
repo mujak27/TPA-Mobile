@@ -17,15 +17,20 @@
     <!--    profile -->
     <string name="choose_photo">choose photo</string>
 
-<!--    checkout-->
+    <!--    checkout-->
     <string name="take_photo">take photo</string>
     <string name="checkout">checkout</string>
     <string name="pickup_data">pickup data</string>
 
-<!--    transaction detail-->
+    <!--    transaction detail-->
     <string name="cooking">cooking</string>
     <string name="sending">sending</string>
     <string name="done">done</string>
+
+
+    <!--    sender home-->
+    <string name="working">working</string>
+    <string name="change_status">change_status</string>
 
     <string name="no_sender_yet">no sender yet</string>
     <string name="name">Name</string>
