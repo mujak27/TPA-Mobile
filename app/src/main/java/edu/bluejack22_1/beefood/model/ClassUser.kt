@@ -52,7 +52,6 @@ class ClassUser (
         fun setUser(user : ClassUser){
             this.staticUser = user
         }
-
         suspend fun getUserByEmail(email :  String) : ClassUser {
 
             Log.d("login get user by email", email)

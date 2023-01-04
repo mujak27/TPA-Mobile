@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="30dp">
         <TextView
+            android:text="Edit Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"/>
         <TextView
+            android:text="@string/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -21,17 +23,26 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"/>
         <TextView
-
+            android:text="@string/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/edit_profile_desc"
             android:layout_width="250dp"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:text="Picture Link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_picLink"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/edit_profile_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"
             />
         <!--            android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"-->
         <Button
@@ -44,8 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fill all the blanks"/>
-=======
-            />
+
         <!--            android:text="@string/upload_image"-->
         <Button
             android:id="@+id/sender_edit_profile_button"
@@ -56,4 +66,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>
