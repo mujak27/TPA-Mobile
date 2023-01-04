@@ -29,6 +29,7 @@ import java.util.Date
 class Checkout : AppCompatActivity() {
     var totalPrice = 0
 
+    lateinit var imageView : ImageView
     private lateinit var carts : ArrayList<ClassCart>
     private lateinit var photoFile : File
     private lateinit var currentPhotoPath : String
@@ -41,9 +42,6 @@ class Checkout : AppCompatActivity() {
     private lateinit var widgetCamera : Button
 
 
-    private val CAMERA_REQUEST = 1888
-    private val imageView: ImageView? = null
-    private val MY_CAMERA_PERMISSION_CODE = 100
 
     fun addTotalPrice(price : Int){
         totalPrice += price
@@ -58,15 +56,37 @@ class Checkout : AppCompatActivity() {
         this.startActivity(intent)
     }
 
+
+    fun onSelectPhoto(){
+
+//        imageView.visibility = View.GONE
+//        val intent = Intent()
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        chooseImage.launch(intent)
+        startActivityForResult(intent, 101)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 101){
+            Log.d("upload file on activ result", "req code 101")
+            var pic : Bitmap? = data?.getParcelableExtra<Bitmap>("data")
+            Log.d("upload file bitmap", pic.toString())
+            imageView.setImageBitmap(pic)
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         totalPrice = 0
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
 
+        imageView = findViewById(R.id.pickup_photo)
         restaurantId = intent.getStringExtra("restaurantId").toString()
         carts = intent.getSerializableExtra("carts") as ArrayList<ClassCart>
-
-        Log.d("carts", carts.toString())
 
         cartsRecycler = findViewById(R.id.recyclerViewCarts)
         cartsRecycler.layoutManager = LinearLayoutManager(this)
@@ -82,34 +102,9 @@ class Checkout : AppCompatActivity() {
             onCheckout()
         }
 
-
-//        widgetCamera.setOnClickListener(object : OnClickListener {
-//            override fun onClick(v: View?) {
-//                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                    requestPermissions(
-//                        arrayOf(Manifest.permission.CAMERA),
-//                        MY_CAMERA_PERMISSION_CODE
-//                    )
-//                } else {
-//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                    startActivityForResult(cameraIntent, CAMERA_REQUEST)
-//                }
-//            }
-//        })
-    }
-    private fun takePicture(){
-        val pictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        photoFile = createImageFile()
-        val uri=FileProvider.getUriForFile(this,"", photoFile)
-        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        startActivityForResult(pictureIntent, 1)
-    }
-
-    private fun createImageFile(): File {
-        val timeStamp: String=SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File?=getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir).apply{
-            currentPhotoPath = absolutePath
+        findViewById<Button>(R.id.button_select_photo).setOnClickListener {
+            onSelectPhoto()
         }
     }
+
 }

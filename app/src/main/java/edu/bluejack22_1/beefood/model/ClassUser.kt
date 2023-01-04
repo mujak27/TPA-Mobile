@@ -20,7 +20,8 @@ class ClassUser (
         var name : String,
         var desc : String,
         var pass : String,
-        var role : String
+        var role : String,
+        var pictureLink : String,
     ) {
 
     companion object {
@@ -37,6 +38,7 @@ class ClassUser (
                 userHashmap.get("desc").toString(),
                 userHashmap.get("pass").toString(),
                 userHashmap.get("role").toString(),
+                userHashmap.get("pictureLink").toString(),
             )
         }
 
@@ -51,16 +53,17 @@ class ClassUser (
             .whereEqualTo("email", email)
                 .limit(1)
                 .get().await()
-            Log.d("google login get user by email", userSnapshot.documents.toString())
-            Log.d("google login get user by email", userSnapshot.documents.get(0).toString())
-            Log.d("google login get user by email", userSnapshot.documents.get(0).data.toString())
             var user = userFromHashmap(userSnapshot.documents.get(0).data as kotlin.collections.HashMap<String, *>)
             return user
         }
 
         suspend fun isEmailExist(email : String) : Boolean {
-            val users = getUserByEmail(email)
-            return users != null
+            var userSnapshot = db.collection("users")
+                .whereEqualTo("email", email)
+                .limit(1)
+                .get().await()
+            if(userSnapshot.documents.size == 0) return false
+            return true
         }
 
         suspend fun getUserById(id : String): ClassUser{
@@ -72,7 +75,7 @@ class ClassUser (
         suspend fun registerUser(email : String, name : String, pass : String) : Boolean{
             Log.d("register email name", email + " " + name)
             var userId = UUID.randomUUID().toString()
-            val user = ClassUser(userId, email, name, "", pass, "Customer")
+            val user = ClassUser(userId, email, name, "", pass, "Customer", "")
             var valid = true
             db.collection("users").document(userId).set(user)
                 .addOnSuccessListener {  }
@@ -120,11 +123,12 @@ class ClassUser (
             }
         }
 
-        fun updateUser(name : String, desc : String){
+        fun updateUser(name : String, desc : String, pictureLink: String){
             db.collection("users").document(staticUser?.id as String)
                 .update(mapOf(
                     "name" to name,
-                    "desc" to desc
+                    "desc" to desc,
+                    "pictureLink" to pictureLink
                 ))
         }
 

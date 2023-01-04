@@ -5,9 +5,28 @@
     <string name="search">cari</string>
     <string name="update">perbarui</string>
 
+    <string name="forgot">lupa password</string>
+
     <string name="not_found">tidak ketemu</string>
     <string name="has_an_account">sudah memiliki account?</string>
+    <string name="dont_have_an_account">tidak memiliki account</string>
     <string name="forgot_your_password">lupa password?</string>
 
+    <string name="send_email">kirim email</string>
+
+    <!--    profile -->
+    <string name="choose_photo">pilih foto</string>
+
+    <!--    checkout-->
+    <string name="take_photo">ambil foto</string>
+    <string name="checkout">checkout</string>
+    <string name="pickup_data">data pengambilan</string>
+
+    <!--    transaction detail-->
+    <string name="cooking">memasak</string>
+    <string name="sending">dikirim</string>
+    <string name="done">selesai</string>
+
+    <string name="no_sender_yet">belum ada pengirim</string>
 
 </resources>

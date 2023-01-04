@@ -1,10 +1,12 @@
 package edu.bluejack22_1.beefood.model
 
+import android.content.Context
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beefood.R
 import kotlinx.coroutines.tasks.await
 
 class ClassRestaurant(
@@ -47,17 +49,8 @@ class ClassRestaurant(
             var restaurantQuery = db.collection("restaurants")
                 .orderBy("name")
 
-//            if(offset > 0){
-//
-//                var cursor = db.collection("restaurants").document(lastId).get().await()
-//                Log.d("inf scroll cursor", cursor.toString())
-//
-//                restaurantQuery = restaurantQuery
-//                    .startAfter(cursor)
-//            }
 
             var restaurantsSnapshot = restaurantQuery
-//                .limit(threshold)
                 .limit(threshold+offset)
                 .startAt(name)
                 .endAt(name + '\uf8ff')
@@ -108,6 +101,13 @@ class ClassRestaurant(
             }
             return restaurants
 
+        }
+
+        fun translateTransactionStatus(status : String, context : Context) : String{
+            if(status == "cooking") return context.getString(R.string.cooking)
+            else if(status == "sending") return context.getString(R.string.sending)
+            else if(status == "done") return context.getString(R.string.done)
+            return ""
         }
     }
 }

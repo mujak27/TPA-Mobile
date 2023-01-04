@@ -1,60 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.Checkout">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCarts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        android:id="@+id/checkout_total_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewCarts"
-        android:text="totalPirce"
-        />
-
-    <EditText
-        android:id="@+id/input_pickup_data"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/checkout_total_price"
-        android:text="pickup data"
-        />
-
-    <Button
-        android:id="@+id/buttonCamera"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="take photo"
-        app:layout_constraintTop_toBottomOf="@+id/input_pickup_data"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-    <ImageView
-        android:id="@+id/imageFromCamera"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCamera"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:orientation="vertical"
         >
 
-    </ImageView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCarts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/checkout_total_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="totalPrice"
+            />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imageFromCamera"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="checkout"
-        android:id="@+id/checkout_button"
-        />
+        <EditText
+            android:id="@+id/input_pickup_data"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="text"
+            android:text="@string/pickup_data"
+            />
+
+        <ImageView
+            android:id="@+id/pickup_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            />
+        <Button
+            android:id="@+id/button_select_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_photo" />
+        <ImageView
+            android:id="@+id/imageFromCamera"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            >
+        </ImageView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkout"
+            android:id="@+id/checkout_button"
+            />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

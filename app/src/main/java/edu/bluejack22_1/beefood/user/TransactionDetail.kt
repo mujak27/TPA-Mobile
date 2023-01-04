@@ -20,7 +20,6 @@ class TransactionDetail : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
         super.onCreate(savedInstanceState)
 
         val transactionId = intent.getStringExtra("transactionId").toString()
@@ -46,7 +45,10 @@ class TransactionDetail : AppCompatActivity() {
             }
 
             if (snapshot != null && snapshot.exists()) {
-                widgetTransactionDetailStatus.setText(snapshot.data?.get("status").toString())
+                widgetTransactionDetailStatus.setText(
+                    ClassRestaurant.translateTransactionStatus(
+                        snapshot.data?.get("status").toString(), this)
+                    )
                 if(snapshot.data?.get("status").toString() == "completed"){
                     widgetSlider.visibility = View.VISIBLE
                 }
@@ -59,7 +61,7 @@ class TransactionDetail : AppCompatActivity() {
             ClassTransaction.transactionFromSnapshot(transactionRef.get().await())
         }
         val restaurant = runBlocking { ClassRestaurant.getRestaurantById(transaction.restaurantId) }
-        var senderName = "no sender yet"
+        var senderName = getString(R.string.no_sender_yet)
         if(transaction.senderId != "") senderName = runBlocking { ClassUser.getUserById(transaction.senderId).name }
 
         findViewById<TextView>(R.id.transaction_detail_data).setText(transaction.data)

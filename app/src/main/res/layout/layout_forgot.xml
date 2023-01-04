@@ -6,62 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".auth.Forgot">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:background="@android:color/holo_orange_light"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_margin="30dp"
-        android:background="#d3d3d3"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        tools:layout_editor_absoluteX="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="100dp">
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/input_email"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:inputType="text"/>
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
                 android:id="@+id/error_text"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/forgotButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="send email"
-                />
+                android:text="@string/send_email" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="has an account?"
-                />
+                android:text="@string/has_an_account" />
+
             <Button
                 android:id="@+id/redirectLoginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="login"
-                />
+                android:text="login" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

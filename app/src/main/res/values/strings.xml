@@ -5,10 +5,28 @@
     <string name="search">search</string>
     <string name="update">update</string>
 
+    <string name="forgot">forgot password</string>
+
     <string name="not_found">not_found</string>
     <string name="has_an_account">has an account?</string>
+    <string name="dont_have_an_account">dont have an account</string>
     <string name="forgot_your_password">forgot your password?</string>
 
+    <string name="send_email">send email</string>
 
+    <!--    profile -->
+    <string name="choose_photo">choose photo</string>
+
+<!--    checkout-->
+    <string name="take_photo">take photo</string>
+    <string name="checkout">checkout</string>
+    <string name="pickup_data">pickup data</string>
+
+<!--    transaction detail-->
+    <string name="cooking">cooking</string>
+    <string name="sending">sending</string>
+    <string name="done">done</string>
+
+    <string name="no_sender_yet">no sender yet</string>
 
 </resources>

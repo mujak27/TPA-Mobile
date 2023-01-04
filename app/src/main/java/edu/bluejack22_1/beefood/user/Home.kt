@@ -113,15 +113,15 @@ class Home : AppCompatActivity() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         var date = Calendar.getInstance()
-        date.set(2023, 1, 2, 13, 39, 1)
-        var timestamp = date.timeInMillis
+        Log.d("notif", "timestamp before " + date.timeInMillis.toString())
+        var timestamp = date.timeInMillis + 1 * 10 * 1000
+//        date.set(2023, 1, 2, 15, 0, 1)
+        Log.d("notif", "notif will be called at " + timestamp.toString())
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             timestamp,
             pendingIntent
         )
-
-
     }
 
     private fun createNotificationChannel() {
