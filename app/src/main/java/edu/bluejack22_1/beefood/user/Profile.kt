@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -24,6 +25,7 @@ class Profile : AppCompatActivity() {
 
     lateinit var imageView : ImageView
     var isImageChanged = false
+    val url = ClassUser.getCurrentUser()?.pictureLink.toString()
 
     fun onUpdate(){
         var name = findViewById<EditText>(R.id.input_name).text.toString()
@@ -36,13 +38,7 @@ class Profile : AppCompatActivity() {
     }
 
     fun onSelectPhoto(){
-
-//        imageView.visibility = View.GONE
-//        val intent = Intent()
-//        intent.type = "image/*"
-//        intent.action = Intent.ACTION_GET_CONTENT
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        chooseImage.launch(intent)
         startActivityForResult(intent, 101)
     }
 
@@ -54,6 +50,29 @@ class Profile : AppCompatActivity() {
             var pic : Bitmap? = data?.getParcelableExtra<Bitmap>("data")
             Log.d("upload file bitmap", pic.toString())
             imageView.setImageBitmap(pic)
+        }
+    }
+
+
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            Log.d("upload file download image", "do in bg")
+            val imageURL = urls[0]
+            var image: Bitmap? = null
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+                Log.d("upload file display image", "success")
+            }
+            catch (e: Exception) {
+                Log.e("upload file Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
         }
     }
 
@@ -69,10 +88,12 @@ class Profile : AppCompatActivity() {
         findViewById<EditText>(R.id.input_desc).setText(user?.desc)
         Log.d("upload file current user", user?.pictureLink!!)
         if(!user?.pictureLink.isNullOrBlank() && user?.pictureLink != "null" && user?.pictureLink.toString() != ""){
-            val newurl = URL(user?.pictureLink)
-            val bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream())
-            imageView.setImageBitmap(bitmap)
+//            val newurl = URL(user?.pictureLink)
+//            val bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream())
+//            imageView.setImageBitmap(bitmap)
         }
+
+        DownloadImageFromInternet(imageView).execute(url)
 
         findViewById<Button>(R.id.button_select_photo).setOnClickListener {
             onSelectPhoto()
