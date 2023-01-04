@@ -17,6 +17,7 @@
                 android:layout_height="65dp"
                 android:backgroundTint="@color/pink_primary">
                 <Button
+                    android:id="@+id/back_button_profile"
                     android:layout_width="60dp"
                     android:layout_height="65dp"
                     android:text="Back">

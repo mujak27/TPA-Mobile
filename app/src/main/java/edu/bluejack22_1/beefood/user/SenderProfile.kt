@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.model.ClassUser
+import edu.bluejack22_1.beefood.sender.SenderHome
 import java.net.URL
 import java.util.concurrent.Executors
 
@@ -72,6 +73,10 @@ class SenderProfile : AppCompatActivity() {
 
             this.startActivity(intent)
         }
+        findViewById<Button>(R.id.back_button_profile).setOnClickListener {
+            val intent = Intent(this, SenderHome::class.java)
 
+            this.startActivity(intent)
+        }
     }
 }
