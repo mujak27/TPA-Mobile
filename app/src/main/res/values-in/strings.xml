@@ -27,6 +27,12 @@
     <string name="sending">dikirim</string>
     <string name="done">selesai</string>
 
+
+    <!--    sender home-->
+
+    <string name="working">kerja</string>
+    <string name="change_status">ubah status</string>
+
     <string name="no_sender_yet">belum ada pengirim</string>
     <string name="name">Name</string>
     <string name="sender_name">Sender Name</string>

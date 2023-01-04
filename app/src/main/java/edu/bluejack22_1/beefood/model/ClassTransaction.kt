@@ -38,6 +38,19 @@ class ClassTransaction(
             )
         }
 
+        fun transactionFromHashmap(transactionHashmap : kotlin.collections.HashMap<String, *>) : ClassTransaction{
+            Log.d("transactionhashmap", transactionHashmap.toString())
+            return ClassTransaction(
+                transactionHashmap.get("id").toString(),
+                transactionHashmap.get("data").toString(),
+                transactionHashmap.get("restaurantId").toString(),
+                transactionHashmap.get("customerId").toString(),
+                transactionHashmap.get("senderId").toString(),
+                transactionHashmap.get("status").toString(),
+                transactionHashmap.get("timestamp").toString(),
+            )
+        }
+
 
         suspend fun createTransaction(
             data : String,
@@ -79,5 +92,21 @@ class ClassTransaction(
 
         fun getTransactionById(id :  String) =
             ClassUser.db.collection("transactions").document(id)
+
+
+//        SENDER
+
+        suspend fun getActiveSenderTransaction() : ClassTransaction?{
+
+            var ref = db
+                .collection("transactions")
+                .whereEqualTo("senderId", ClassUser.getCurrentUser()?.id!!)
+                .whereEqualTo("status", "sending")
+                .get()
+                .await()
+            Log.d("get active transaction size", ref.documents.size.toString())
+            if(ref.documents.size == 0) return null
+            return transactionFromHashmap(ref.documents.get(0).data as HashMap<String, *>)
+        }
     }
 }

@@ -7,7 +7,10 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.auth.Login
+import edu.bluejack22_1.beefood.seller.SellerHome
+import edu.bluejack22_1.beefood.sender.SenderHome
 import edu.bluejack22_1.beefood.user.Home
 import edu.bluejack22_1.beefood.user.SenderProfile
 import kotlinx.coroutines.runBlocking
@@ -23,6 +26,7 @@ class ClassUser (
     var pass : String,
     var role : String,
     var pictureLink : String,
+    var status : String,
 ) {
 
     companion object {
@@ -40,6 +44,7 @@ class ClassUser (
                 userHashmap.get("pass").toString(),
                 userHashmap.get("role").toString(),
                 userHashmap.get("pictureLink").toString(),
+                userHashmap.get("status").toString(),
             )
         }
 
@@ -49,6 +54,7 @@ class ClassUser (
         }
         suspend fun getUserByEmail(email :  String) : ClassUser {
 
+            Log.d("login get user by email", email)
             var userSnapshot = db.collection("users")
                 .whereEqualTo("email", email)
                 .limit(1)
@@ -67,6 +73,7 @@ class ClassUser (
         }
 
         suspend fun getUserById(id : String): ClassUser{
+            Log.d("login get user by id", id)
             var userSnapshot = ClassRestaurant.db.collection("users").document(id).get().await()
             var user = userFromHashmap(userSnapshot.data as kotlin.collections.HashMap<String, *>)
             return user
@@ -75,7 +82,7 @@ class ClassUser (
         suspend fun registerUser(email : String, name : String, pass : String) : Boolean{
             Log.d("register email name", email + " " + name)
             var userId = UUID.randomUUID().toString()
-            val user = ClassUser(userId, email, name, "", pass, "Customer", "")
+            val user = ClassUser(userId, email, name, "", pass, "Customer", "", "")
             var valid = true
             db.collection("users").document(userId).set(user)
                 .addOnSuccessListener {  }
@@ -88,14 +95,16 @@ class ClassUser (
 
         fun loginUser(email : String, pass : String) : Boolean{
             var valid = false
-            Log.d("login", email + " " + pass)
+            Log.d("login user ", email + " " + pass)
             runBlocking {
                 try {
                     var x = auth.signInWithEmailAndPassword(email, pass).await()
                     Log.d("user x", x.toString())
                     Log.d("user", x.user.toString())
                     valid = true
+                    Log.d("login", "auth found")
                 }catch (e : Exception){
+                    Log.d("login", "auth not found")
                     valid = false
                 }
             }
@@ -107,6 +116,7 @@ class ClassUser (
                 if(users.isEmpty){
                 }else{
                     setUser(userFromHashmap(users.documents.get(0).data as HashMap<String, *>))
+                    valid = true
 
                 }
             }
@@ -137,10 +147,10 @@ class ClassUser (
         }
 
         fun redirectToHomeBasedOnUserRole() : Class<*>{
-            val authEmail = auth.currentUser?.email.toString()
-            if(authEmail!=""){
-                staticUser = runBlocking { getUserByEmail(authEmail) }
-            }
+//            val authEmail = auth.currentUser?.email.toString()
+//            if(authEmail!=""){
+//                staticUser = runBlocking { getUserByEmail(authEmail) }
+//            }
             if(staticUser == null) {
                 Log.d("role", "null")
                 return Login::class.java
@@ -150,10 +160,10 @@ class ClassUser (
                 return Home::class.java
             } else if(staticUser!!.role=="Sender"){
                 Log.d("role","Sender")
-                return SenderProfile::class.java
+                return SenderHome::class.java
             }else if(staticUser!!.role=="Seller"){
                 Log.d("role","Seller")
-//                return SenderProfile::class.java
+                return SellerHome::class.java
             }
             else{
                 Log.d("role", "else")
@@ -164,10 +174,26 @@ class ClassUser (
 
 
         public fun sendForgotPasswordEmail(email: String) {
-//            auth.signInWithCredential()
             auth.sendPasswordResetEmail(email)
-
-
         }
+
+        //        SENDER
+
+        fun translateStatus(status : String, context : Context) : String{
+            if(status == "working") return context.getString(R.string.working)
+            else if(status == "standby") return context.getString(R.string.standby)
+            return ""
+        }
+
+        fun changeStatus(context: Context) : String{
+            var newStatus = "working"
+            if(staticUser?.status == "working") newStatus = "standby"
+            db.collection("users").document(staticUser?.id as String)
+                .update(mapOf(
+                    "status" to newStatus
+                ))
+            return translateStatus(newStatus, context)
+        }
+
     }
 }
