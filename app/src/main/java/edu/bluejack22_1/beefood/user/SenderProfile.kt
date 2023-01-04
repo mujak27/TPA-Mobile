@@ -20,7 +20,7 @@ class SenderProfile : AppCompatActivity() {
 
     val user=ClassUser.getCurrentUser()
     var image: Bitmap? = null
-    val url = user?.pic.toString()
+//    val url = user?.pic.toString()
 
     fun setTextProfile(){
         val name : TextView = findViewById<TextView>(R.id.profile_sender_name)
@@ -28,12 +28,8 @@ class SenderProfile : AppCompatActivity() {
 
         name.setText(user?.name.toString())
         desc.setText(user?.desc.toString())
-        val img : ImageView = findViewById<ImageView>(R.id.sender_profile_pic)
-//        val executor = Executors.newSingleThreadExecutor()
-//        val inp = URL(url).openStream()
-//        val bMap = BitmapFactory.decodeStream(inp)
-//        img.setImageBitmap(bMap)
-        DownloadImageFromInternet(findViewById(R.id.sender_profile_pic)).execute(url)
+//        val img : ImageView = findViewById<ImageView>(R.id.sender_profile_pic)
+//        DownloadImageFromInternet(findViewById(R.id.sender_profile_pic)).execute(url)
     }
     @SuppressLint("StaticFieldLeak")
     @Suppress("DEPRECATION")

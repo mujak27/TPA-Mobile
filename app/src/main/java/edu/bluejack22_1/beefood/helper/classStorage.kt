@@ -26,7 +26,7 @@ class classStorage {
             val data = baos.toByteArray()
 
 
-            var imageRef = storageRef.child("testlink")
+            var imageRef = storageRef.child("image")
 
             var uploadTask = imageRef.putBytes(data)
             uploadTask.addOnFailureListener {

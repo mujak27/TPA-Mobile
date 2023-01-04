@@ -29,4 +29,10 @@
 
     <string name="no_sender_yet">belum ada pengirim</string>
 
+    <!--    sender home-->
+
+    <string name="working">kerja</string>
+    <string name="standby">istirahat</string>
+    <string name="change_status">ubah status</string>
+
 </resources>

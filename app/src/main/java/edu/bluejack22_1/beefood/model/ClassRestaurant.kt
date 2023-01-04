@@ -109,6 +109,40 @@ class ClassRestaurant(
             else if(status == "done") return context.getString(R.string.done)
             return ""
         }
+
+//        SELLER
+
+
+        suspend fun getOwnedRestaurants(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
+            Log.d("inf scroll", "get owned restaurants: " + threshold + " " + offset + " " + lastId)
+
+            var restaurantQuery = db.collection("restaurants")
+                .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
+
+            if(offset > 0){
+
+                var cursor = db.collection("restaurants").document(lastId).get().await()
+                Log.d("inf scroll", cursor.toString())
+
+                restaurantQuery = restaurantQuery
+                    .startAfter(cursor)
+            }
+
+            var restaurantsSnapshot = restaurantQuery
+                .limit(threshold)
+                .get()
+                .await()
+
+            var restaurants : ArrayList<ClassRestaurant> = ArrayList()
+            for(restaurantSnapshot in restaurantsSnapshot){
+                restaurants.add(
+                    restaurantFromSnapshot(restaurantSnapshot)
+                )
+            }
+            return restaurants
+
+        }
+
     }
 }
 

@@ -1,12 +1,11 @@
 package edu.bluejack22_1.beefood.model
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.auth.Login
 import edu.bluejack22_1.beefood.user.Home
 import kotlinx.coroutines.runBlocking
@@ -22,6 +21,7 @@ class ClassUser (
         var pass : String,
         var role : String,
         var pictureLink : String,
+        var status : String,
     ) {
 
     companion object {
@@ -39,6 +39,7 @@ class ClassUser (
                 userHashmap.get("pass").toString(),
                 userHashmap.get("role").toString(),
                 userHashmap.get("pictureLink").toString(),
+                userHashmap.get("status").toString(),
             )
         }
 
@@ -75,7 +76,7 @@ class ClassUser (
         suspend fun registerUser(email : String, name : String, pass : String) : Boolean{
             Log.d("register email name", email + " " + name)
             var userId = UUID.randomUUID().toString()
-            val user = ClassUser(userId, email, name, "", pass, "Customer", "")
+            val user = ClassUser(userId, email, name, "", pass, "Customer", "", "")
             var valid = true
             db.collection("users").document(userId).set(user)
                 .addOnSuccessListener {  }
@@ -92,8 +93,6 @@ class ClassUser (
             runBlocking {
                 try {
                     var x = auth.signInWithEmailAndPassword(email, pass).await()
-                    Log.d("user x", x.toString())
-                    Log.d("user", x.user.toString())
                     valid = true
                 }catch (e : Exception){
                     valid = false
@@ -107,20 +106,11 @@ class ClassUser (
                 if(users.isEmpty){
                 }else{
                     setUser(userFromHashmap(users.documents.get(0).data as HashMap<String, *>))
-
+                    Log.d("login result", staticUser?.id!!)
+                    valid = true
                 }
             }
             return valid
-        }
-
-        fun googleLogin(email: String){
-            Log.d("google login auth", auth.currentUser?.email.toString())
-            if(runBlocking { isEmailExist(email) } ){
-                // email has registered before
-
-            }else{
-                // new account
-            }
         }
 
         fun updateUser(name : String, desc : String, pictureLink: String){
@@ -149,6 +139,14 @@ class ClassUser (
                 Log.d("role", "customer")
                 return Home::class.java
             }
+            if(staticUser!!.role == "Sender"){
+                Log.d("role", "sender")
+                return edu.bluejack22_1.beefood.sender.SenderHome::class.java
+            }
+            if(staticUser!!.role == "Seller"){
+                Log.d("role", "seller")
+                return edu.bluejack22_1.beefood.seller.SellerHome::class.java
+            }
             else{
                 Log.d("role", "else")
 
@@ -160,8 +158,25 @@ class ClassUser (
         public fun sendForgotPasswordEmail(email: String) {
 //            auth.signInWithCredential()
             auth.sendPasswordResetEmail(email)
-
-
         }
+
+//        SENDER
+
+        fun translateStatus(status : String, context : Context) : String{
+            if(status == "working") return context.getString(R.string.working)
+            else if(status == "standby") return context.getString(R.string.standby)
+            return ""
+        }
+
+        fun changeStatus(context: Context) : String{
+            var newStatus = "working"
+            if(staticUser?.status == "working") newStatus = "standby"
+            db.collection("users").document(staticUser?.id as String)
+                .update(mapOf(
+                    "status" to newStatus
+                ))
+            return translateStatus(newStatus, context)
+        }
+
     }
 }
