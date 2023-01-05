@@ -56,6 +56,40 @@ class RestaurantDetail : AppCompatActivity() {
     }
 
 
+
+    private var offset : Long = 0
+    private var threshold : Long = 5
+    private var isLoading = false
+    private var isEnd = false
+    var linearLayoutManager = LinearLayoutManager(this)
+    var menus : ArrayList<ClassMenu> = arrayListOf()
+
+    var totalPrice = 0
+
+
+    private fun loadMore() {
+        Log.d("layout visible index ", linearLayoutManager.findLastCompletelyVisibleItemPosition().toString())
+        Log.d("rest size ", menus.size.toString())
+        if (!isLoading && !isEnd && linearLayoutManager.findLastCompletelyVisibleItemPosition() == menus.size-1) {
+            isLoading = true
+            var lastId = ""
+            if(menus.size > 0) lastId = menus.get(menus.size-1).id
+            var newRestaurants = runBlocking { ClassMenu.getMenusFromRestaurantIdWithOffset(restaurantId, threshold, offset, lastId) }
+            if(newRestaurants.size > 0){
+                Log.d("inf scroll", "exists")
+                if(newRestaurants.size < threshold){
+                    isEnd = true;
+                }
+                menus.addAll(newRestaurants)
+                menusRecycler.adapter = MenuItemAdapter(menus, ::onAddCart, ::onRemoveCart)
+                offset += threshold
+            }
+            Log.d("inf scroll", "load more new offset " + offset.toString())
+            isLoading = false
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurant)
@@ -70,10 +104,18 @@ class RestaurantDetail : AppCompatActivity() {
         menusRecycler = findViewById(R.id.recyclerViewMenus)
         menusRecycler.layoutManager = LinearLayoutManager(this)
         menusRecycler.setHasFixedSize(true)
-        menusRecycler.adapter = MenuItemAdapter(menus, ::onAddCart, ::onRemoveCart)
 
         checkoutButton = findViewById(R.id.buttonCheckout)
         checkoutButton.setOnClickListener{onCheckout()}
+
+
+        loadMore()
+        menusRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                loadMore()
+            }
+        })
 
 
 

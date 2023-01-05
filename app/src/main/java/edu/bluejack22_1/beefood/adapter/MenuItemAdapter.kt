@@ -2,6 +2,7 @@ package edu.bluejack22_1.beefood.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,8 @@ class MenuItemAdapter(
         }
 
 
-        val role = ClassUser.getCurrentUser()?.status!!
+        val role = ClassUser.getCurrentUser()?.role!!
+        Log.d("transaction check role", role)
         if(role == "Seller"){
             holder.addButton.visibility = View.GONE
             holder.removeButton.visibility = View.GONE

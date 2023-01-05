@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.RangeSlider
 import com.google.android.material.slider.Slider
 import edu.bluejack22_1.beefood.R
+import edu.bluejack22_1.beefood.adapter.CartItemAdapter
+import edu.bluejack22_1.beefood.model.ClassCart
 import edu.bluejack22_1.beefood.model.ClassRestaurant
 import edu.bluejack22_1.beefood.model.ClassTransaction
 import edu.bluejack22_1.beefood.model.ClassUser
@@ -17,13 +21,22 @@ import kotlinx.coroutines.tasks.await
 class TransactionDetail : AppCompatActivity() {
 
     lateinit var widgetSlider : RangeSlider
+    private lateinit var cartsRecycler : RecyclerView
+
+    var totalPrice = 0
+
+    fun addTotalPrice(price : Int){
+        totalPrice = totalPrice + price
+        Log.d("transaction add total price", price.toString() + " " + totalPrice.toString())
+        findViewById<TextView>(R.id.transaction_detail_totalprice).setText(totalPrice.toString())
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
         val transactionId = intent.getStringExtra("transactionId").toString()
-
         setContentView(R.layout.activity_transaction_detail)
         findViewById<TextView>(R.id.transaction_detail_id).setText(transactionId)
         var widgetTransactionDetailStatus = findViewById<TextView>(R.id.transaction_detail_status)
@@ -67,6 +80,16 @@ class TransactionDetail : AppCompatActivity() {
         findViewById<TextView>(R.id.transaction_detail_data).setText(transaction.data)
         findViewById<TextView>(R.id.transaction_detail_restaurant).setText(restaurant.name)
         findViewById<TextView>(R.id.transaction_detail_sender).setText(senderName)
+
+
+
+        var carts = runBlocking { ClassCart.getCartsFromTransaction(transactionId) }
+        cartsRecycler = findViewById(R.id.recyclerViewCarts)
+        cartsRecycler.layoutManager = LinearLayoutManager(this)
+        cartsRecycler.setHasFixedSize(true)
+        cartsRecycler.adapter = CartItemAdapter(transaction.restaurantId, carts, ::addTotalPrice)
+
+
 
     }
 }

@@ -75,6 +75,7 @@ class ClassTransaction(
             return ref.id
         }
 
+
         suspend fun getTransactionIds(): ArrayList<String> {
             val userId = ClassUser.staticUser?.id.toString()
             val transactionsSnapshot = db
