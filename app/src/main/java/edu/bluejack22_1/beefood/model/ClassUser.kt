@@ -27,6 +27,7 @@ class ClassUser (
     var role : String,
     var pictureLink : String,
     var status : String,
+    var isSending : Boolean
 ) {
 
     companion object {
@@ -45,6 +46,7 @@ class ClassUser (
                 userHashmap.get("role").toString(),
                 userHashmap.get("pictureLink").toString(),
                 userHashmap.get("status").toString(),
+                userHashmap.get("isSending").toString().toBoolean(),
             )
         }
 
@@ -82,7 +84,7 @@ class ClassUser (
         suspend fun registerUser(email : String, name : String, pass : String) : Boolean{
             Log.d("register email name", email + " " + name)
             var userId = UUID.randomUUID().toString()
-            val user = ClassUser(userId, email, name, "", pass, "Customer", "", "")
+            val user = ClassUser(userId, email, name, "", pass, "Customer", "", "", false)
             var valid = true
             db.collection("users").document(userId).set(user)
                 .addOnSuccessListener {  }
@@ -193,6 +195,17 @@ class ClassUser (
                     "status" to newStatus
                 ))
             return translateStatus(newStatus, context)
+        }
+
+        // SELLER
+        suspend fun getIdleSender() : String{ // idle is working but is not sending any food right now
+            var userSnapshot = ClassRestaurant.db.collection("users")
+                .whereEqualTo("role", "sender")
+                .whereEqualTo("isSending", false)
+                .limit(1)
+                .get().await()
+            if(userSnapshot.documents.size == 0) return ""
+            return userSnapshot.documents.get(0).id
         }
 
     }

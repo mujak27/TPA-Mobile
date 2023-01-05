@@ -16,6 +16,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beefood">
         <activity
+            android:name=".seller.SellerTransactions"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".seller.SellerSearch"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".user.SenderHome"
             android:exported="false">
             <meta-data

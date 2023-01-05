@@ -22,6 +22,13 @@
             android:id="@+id/item_transaction_status"
             android:text="status"
             />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_transaction_button_change_status"
+            android:text="change status"
+            android:visibility="gone"
+            />
 
     </LinearLayout>
 

@@ -143,6 +143,33 @@ class ClassRestaurant(
 
         }
 
+
+        suspend fun getOwnedRestaurantsByName(name : String, threshold : Long, offset : Long) : ArrayList<ClassRestaurant>{
+
+            Log.d("inf scroll", "getRestaurantbyname : " + threshold + " " + offset)
+//
+            var restaurantQuery = db.collection("restaurants")
+                .orderBy("name")
+
+
+            var restaurantsSnapshot = restaurantQuery
+                .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
+                .limit(threshold+offset)
+                .startAt(name)
+                .endAt(name + '\uf8ff')
+                .get()
+                .await()
+
+            var restaurants : ArrayList<ClassRestaurant> = ArrayList()
+            for(restaurantSnapshot in restaurantsSnapshot){
+                Log.d("restaurant", restaurantSnapshot.toString())
+                restaurants.add(
+                    restaurantFromSnapshot(restaurantSnapshot)
+                )
+            }
+            return restaurants
+        }
+
     }
 }
 

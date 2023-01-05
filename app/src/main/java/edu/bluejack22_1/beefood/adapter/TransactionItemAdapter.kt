@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.model.ClassTransaction
 import edu.bluejack22_1.beefood.user.TransactionDetail
+import kotlinx.coroutines.runBlocking
 
 class TransactionItemAdapter(
     private val transactionIds : ArrayList<String>,
+    private val isSeller : Boolean
 ) : RecyclerView.Adapter<TransactionItemAdapter.MyViewHolder>() {
 
     lateinit var context : Context
@@ -34,10 +36,12 @@ class TransactionItemAdapter(
         var widgetTransaction : FrameLayout
         var widgetId : TextView
         var widgetStatus : TextView
+        var widgetButton : Button
         init {
             widgetTransaction = itemView.findViewById(R.id.item_transaction)
             widgetId = itemView.findViewById(R.id.item_transaction_id)
             widgetStatus = itemView.findViewById<Button>(R.id.item_transaction_status)
+            widgetButton = itemView.findViewById<Button>(R.id.item_transaction_button_change_status)
         }
     }
 
@@ -45,13 +49,26 @@ class TransactionItemAdapter(
         var currTransaction = ClassTransaction.getTransactionById(transactionIds.get(position))
         holder.widgetId.setText(currTransaction.id)
 
+
         currTransaction.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 return@addSnapshotListener
             }
             if (snapshot != null && snapshot.exists()) {
-                Log.d("snapshot data", snapshot.data.toString())
-                holder.widgetStatus.setText(snapshot.data?.get("status").toString())
+                var status = snapshot.data?.get("status").toString()
+                holder.widgetStatus.setText(status)
+                Log.d("transaction update status", status)
+//                Log.d()
+
+                if(isSeller && status == "cooking"){
+                    Log.d("transaction update visiblity", "visible")
+                    holder.widgetButton.visibility = View.VISIBLE
+                    holder.widgetButton.setOnClickListener {
+                        runBlocking { ClassTransaction.updateTransactionStatus(currTransaction.id) }
+                    }
+                }
+
+
             } else {
                 holder.widgetStatus.setText("not found")
             }
@@ -62,5 +79,6 @@ class TransactionItemAdapter(
             intent.putExtra("transactionId", currTransaction.id)
             this.context.startActivity(intent)
         }
+
     }
 }

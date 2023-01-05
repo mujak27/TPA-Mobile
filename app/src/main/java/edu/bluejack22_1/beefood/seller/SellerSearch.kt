@@ -1,48 +1,55 @@
 package edu.bluejack22_1.beefood.seller
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.adapter.RestaurantItemAdapter
 import edu.bluejack22_1.beefood.model.ClassRestaurant
-import edu.bluejack22_1.beefood.user.Search
 import kotlinx.coroutines.runBlocking
 
-class SellerHome : AppCompatActivity() {
+class SellerSearch : AppCompatActivity() {
 
+
+    lateinit var widgetInputSearch : EditText
 
     private lateinit var restaurantsRecycler : RecyclerView
 
+
     private var restaurantOffset : Long = 0
-    private var restaurantThreshold : Long = 5
+    private val restaurantThreshold : Long = 5
     private var isLoading = false
     private var isEnd = false
     var linearLayoutManager = LinearLayoutManager(this)
     var restaurants : ArrayList<ClassRestaurant> = arrayListOf()
 
+    fun onChange(){
+        Log.d("load more", "on change detected")
+        restaurantOffset = 0
+        isEnd = false
+        isLoading = false
+        restaurants = arrayListOf()
+        loadMore(false)
+    }
 
 
+    private fun loadMore(mustEndScreen : Boolean) {
 
-    private fun loadMore() {
-        Log.d("layout visible index ", linearLayoutManager.findLastCompletelyVisibleItemPosition().toString())
-        Log.d("rest size ", restaurants.size.toString())
-        if (!isLoading && !isEnd && linearLayoutManager.findLastCompletelyVisibleItemPosition() == restaurants.size-1) {
+        var searchText = widgetInputSearch.text.toString();
+        if (!isLoading && !isEnd && (!mustEndScreen || linearLayoutManager.findLastCompletelyVisibleItemPosition() == restaurants.size-1) ) {
             isLoading = true
             var lastId = ""
             if(restaurants.size > 0) lastId = restaurants.get(restaurants.size-1).id
-            var newRestaurants = runBlocking { ClassRestaurant.getOwnedRestaurants(restaurantThreshold, restaurantOffset, lastId) }
+            var newRestaurants = runBlocking { ClassRestaurant.getOwnedRestaurantsByName(searchText, restaurantThreshold, restaurantOffset) }
             if(newRestaurants.size > 0){
-                Log.d("inf scroll", "exists")
-                if(newRestaurants.size < restaurantThreshold){
-                    isEnd = true;
-                }
-                restaurants.addAll(newRestaurants)
+                if(newRestaurants.size < restaurantThreshold) isEnd = true;
+//                restaurants.addAll(newRestaurants)
+                restaurants = newRestaurants
                 restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
                 restaurantOffset += restaurantThreshold
             }
@@ -52,34 +59,41 @@ class SellerHome : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        restaurants = arrayListOf()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_seller_home)
+        setContentView(R.layout.activity_search)
 
 
-        // infinite scrolling
         restaurantsRecycler = findViewById(R.id.recyclerViewRestaurant)
         restaurantsRecycler.layoutManager = linearLayoutManager
         restaurantsRecycler.setHasFixedSize(true)
-        loadMore()
+
+        widgetInputSearch = findViewById(R.id.input_search)
+        widgetInputSearch.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                onChange()
+            }
+        })
+
+        loadMore(false)
         restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
         restaurantsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                loadMore()
+                loadMore(true)
             }
         })
 
-        findViewById<Button>(R.id.searchButton).setOnClickListener {
-            val intent = Intent(this, SellerSearch::class.java)
-            this.startActivity(intent)
 
-        }
-
-        findViewById<Button>(R.id.transactions).setOnClickListener {
-            val intent = Intent(this, SellerTransactions::class.java)
-            this.startActivity(intent)
-
-        }
 
     }
+
 }

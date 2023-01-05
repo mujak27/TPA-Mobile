@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Transaction
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -93,6 +94,35 @@ class ClassTransaction(
         fun getTransactionById(id :  String) =
             ClassUser.db.collection("transactions").document(id)
 
+        suspend fun updateTransactionStatus(transactionId : String){
+            var transaction = transactionFromHashmap(
+                getTransactionById(transactionId).get().await().data  as HashMap<String, *>
+            )
+            var newStatus = ""
+            if(transaction.status == "cooking"){
+                newStatus = "sending"
+
+//            }else if(transaction.status == "waiting"){
+//                newStatus = "sending"
+
+            }else if(transaction.status == "sending"){
+                newStatus = "done"
+            }
+            if(newStatus == "") return
+
+            lookForSender(transactionId)
+        }
+
+        suspend fun matchTransactionAndSender(transactionId: String, senderId: String){
+
+        }
+
+        suspend fun lookForSender(transactionId: String){
+            var senderId = ClassUser.getIdleSender()
+            if(senderId == "") return
+            matchTransactionAndSender(transactionId, senderId)
+
+        }
 
 //        SENDER
 
@@ -108,5 +138,71 @@ class ClassTransaction(
             if(ref.documents.size == 0) return null
             return transactionFromHashmap(ref.documents.get(0).data as HashMap<String, *>)
         }
+
+//        SELLER
+
+
+        suspend fun getActiveTransactionIds(threshold : Long, offset : Long, lastId : String) : ArrayList<String>{
+            Log.d("inf scroll", "get owned transactions: " + threshold + " " + offset + " " + lastId)
+
+            val userId = ClassUser.staticUser?.id.toString()
+            var transactionQuery = db
+                .collection("transactions")
+                .whereEqualTo("restaurantId", userId)
+                .whereIn("status", arrayListOf("sending", "cooking"))
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+
+
+            if(offset > 0){
+
+                var cursor = db.collection("transactions").document(lastId).get().await()
+                Log.d("inf scroll", cursor.toString())
+
+                transactionQuery = transactionQuery
+                    .startAfter(cursor)
+            }
+
+            var transactionsSnapshot = transactionQuery
+                .limit(threshold)
+                .get()
+                .await()
+            var transactionIds : ArrayList<String> = arrayListOf()
+            for(transactionSnapshot in transactionsSnapshot.documents){
+                transactionIds.add(transactionSnapshot.id)
+            }
+            return transactionIds
+        }
+
+        suspend fun getPastTransactionIds(threshold : Long, offset : Long, lastId : String) : ArrayList<String>{
+            Log.d("inf scroll", "get owned transactions: " + threshold + " " + offset + " " + lastId)
+
+            val userId = ClassUser.staticUser?.id.toString()
+            var transactionQuery = db
+                .collection("transactions")
+                .whereEqualTo("restaurantId", userId)
+                .whereEqualTo("status", "done")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+
+
+            if(offset > 0){
+
+                var cursor = db.collection("transactions").document(lastId).get().await()
+                Log.d("inf scroll", cursor.toString())
+
+                transactionQuery = transactionQuery
+                    .startAfter(cursor)
+            }
+
+            var transactionsSnapshot = transactionQuery
+                .limit(threshold)
+                .get()
+                .await()
+            var transactionIds : ArrayList<String> = arrayListOf()
+            for(transactionSnapshot in transactionsSnapshot.documents){
+                transactionIds.add(transactionSnapshot.id)
+            }
+            return transactionIds
+        }
+
     }
 }

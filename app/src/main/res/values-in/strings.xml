@@ -27,6 +27,9 @@
     <string name="sending">dikirim</string>
     <string name="done">selesai</string>
 
+    <string name="ongoing">berjalan</string>
+    <string name="past">berlalu</string>
+
 
     <!--    sender home-->
 
