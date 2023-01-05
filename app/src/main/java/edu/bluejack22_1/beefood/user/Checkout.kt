@@ -45,11 +45,16 @@ class Checkout : AppCompatActivity() {
 
     fun addTotalPrice(price : Int){
         totalPrice += price
+
+        widgetTotalPrice = findViewById(R.id.checkout_total_price)
+        Log.d("transaction checkout total price", totalPrice.toString())
+        widgetTotalPrice.setText(totalPrice.toString())
     }
     fun onCheckout(){
         val customerId = ClassUser.staticUser?.id.toString()
         val data = widgetPickupData.text.toString()
         var transactionId = runBlocking { ClassTransaction.createTransaction(data, restaurantId, customerId, "", "cooking") }
+        ClassCart.insertCartToTransaction(transactionId, carts)
 
         val intent = Intent(this, TransactionDetail::class.java)
         intent.putExtra("transactionId", transactionId)
@@ -93,8 +98,6 @@ class Checkout : AppCompatActivity() {
         cartsRecycler.setHasFixedSize(true)
         cartsRecycler.adapter = CartItemAdapter(restaurantId, carts, ::addTotalPrice)
 
-        widgetTotalPrice = findViewById(R.id.checkout_total_price)
-        widgetTotalPrice.setText(totalPrice.toString())
 
         widgetPickupData = findViewById(R.id.input_pickup_data)
 

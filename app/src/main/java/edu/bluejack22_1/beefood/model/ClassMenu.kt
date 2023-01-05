@@ -52,6 +52,34 @@ class ClassMenu(
             return menus;
         }
 
+
+        suspend fun getMenusFromRestaurantIdWithOffset(restaurantId : String, threshold : Long, offset : Long, lastId : String) : ArrayList<ClassMenu>{
+            Log.d("inf scroll menu rest", restaurantId)
+            Log.d("inf scroll check rest doc", db.collection("restaurants").document(restaurantId).get().await().data.toString())
+            var menuQuery = db.collection("restaurants").document(restaurantId).collection("menus").limit(threshold)
+
+            if(offset > 0){
+
+                var cursor = db.collection("restaurants").document(restaurantId).collection("menus").document(lastId).get().await()
+                Log.d("inf scroll", cursor.toString())
+
+                menuQuery = menuQuery
+                    .startAfter(cursor)
+            }
+            var menusSnapshot = menuQuery
+                .get().await()
+            var menus : ArrayList<ClassMenu> = arrayListOf();
+            Log.d("inf scroll size", menusSnapshot.size().toString())
+
+            for(menuSnapshot in menusSnapshot){
+                menus.add(menuFromSnapshot(menuSnapshot));
+            }
+
+            return menus;
+
+
+        }
+
         suspend fun getMenuById(restaurantId: String, menuId : String) : ClassMenu{
             Log.d("get menu restaurant", restaurantId + " " + menuId)
             val menuSnapshot = db.collection("restaurants").document(restaurantId).collection("menus").document(menuId).get().await()

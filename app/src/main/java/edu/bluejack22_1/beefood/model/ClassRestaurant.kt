@@ -112,6 +112,23 @@ class ClassRestaurant(
 
 //        SELLER
 
+        suspend fun getOwnedRestaurantIds() : ArrayList<String>{
+
+            Log.d("transaction get restaurant ids", ClassUser.getCurrentUser()?.id!!)
+            var restaurantsSnapshot = db.collection("restaurants")
+                .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
+                .get()
+                .await()
+
+            var restaurantIds : ArrayList<String> = ArrayList()
+            for(restaurantSnapshot in restaurantsSnapshot.documents){
+                Log.d("transaction restaurant ", restaurantSnapshot.id)
+                restaurantIds.add(
+                    restaurantSnapshot.id
+                )
+            }
+            return restaurantIds
+        }
 
         suspend fun getOwnedRestaurants(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
             Log.d("inf scroll", "get owned restaurants: " + threshold + " " + offset + " " + lastId)
@@ -141,6 +158,33 @@ class ClassRestaurant(
             }
             return restaurants
 
+        }
+
+
+        suspend fun getOwnedRestaurantsByName(name : String, threshold : Long, offset : Long) : ArrayList<ClassRestaurant>{
+
+            Log.d("inf scroll", "getRestaurantbyname : " + threshold + " " + offset)
+//
+            var restaurantQuery = db.collection("restaurants")
+                .orderBy("name")
+
+
+            var restaurantsSnapshot = restaurantQuery
+                .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
+                .limit(threshold+offset)
+                .startAt(name)
+                .endAt(name + '\uf8ff')
+                .get()
+                .await()
+
+            var restaurants : ArrayList<ClassRestaurant> = ArrayList()
+            for(restaurantSnapshot in restaurantsSnapshot){
+                Log.d("restaurant", restaurantSnapshot.toString())
+                restaurants.add(
+                    restaurantFromSnapshot(restaurantSnapshot)
+                )
+            }
+            return restaurants
         }
 
     }

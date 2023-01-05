@@ -12,10 +12,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.model.ClassTransaction
+import edu.bluejack22_1.beefood.model.ClassUser
 import edu.bluejack22_1.beefood.user.TransactionDetail
+import kotlinx.coroutines.runBlocking
 
 class TransactionItemAdapter(
     private val transactionIds : ArrayList<String>,
+    private val isSeller : Boolean
 ) : RecyclerView.Adapter<TransactionItemAdapter.MyViewHolder>() {
 
     lateinit var context : Context
@@ -34,10 +37,14 @@ class TransactionItemAdapter(
         var widgetTransaction : FrameLayout
         var widgetId : TextView
         var widgetStatus : TextView
+        var widgetButton : Button
+        var widgetSenderName : TextView
         init {
             widgetTransaction = itemView.findViewById(R.id.item_transaction)
             widgetId = itemView.findViewById(R.id.item_transaction_id)
-            widgetStatus = itemView.findViewById<Button>(R.id.item_transaction_status)
+            widgetStatus = itemView.findViewById(R.id.item_transaction_status)
+            widgetButton = itemView.findViewById(R.id.item_transaction_button_change_status)
+            widgetSenderName = itemView.findViewById(R.id.item_transaction_sender_name)
         }
     }
 
@@ -50,17 +57,43 @@ class TransactionItemAdapter(
                 return@addSnapshotListener
             }
             if (snapshot != null && snapshot.exists()) {
-                Log.d("snapshot data", snapshot.data.toString())
-                holder.widgetStatus.setText(snapshot.data?.get("status").toString())
+                var status = snapshot.data?.get("status").toString()
+                holder.widgetStatus.setText(status)
+                Log.d("transaction update status", status)
+//                Log.d()
+
+                if(isSeller && status == "cooking"){
+                    Log.d("transaction update visiblity", "visible")
+                    holder.widgetButton.visibility = View.VISIBLE
+                    holder.widgetButton.setOnClickListener {
+                        runBlocking { ClassTransaction.updateTransactionStatus(currTransaction.id) }
+                        holder.widgetButton.visibility = View.GONE
+                    }
+                }else{
+                    holder.widgetButton.visibility = View.GONE
+                    holder.widgetSenderName.visibility = View.VISIBLE
+
+                    val senderId = snapshot.data?.get("senderId").toString()
+                    Log.d("transaction get user sender", senderId)
+                    if(senderId != null && senderId != "" && senderId.toString() != "null"){
+                        var user = runBlocking { ClassUser.getUserById(senderId) }
+                        holder.widgetSenderName.text = user?.name
+                    }
+
+                }
+
+
             } else {
                 holder.widgetStatus.setText("not found")
             }
         }
 
         holder.widgetTransaction.setOnClickListener{
+            Log.d("transaction clicked", currTransaction.id)
             val intent = Intent(this.context, TransactionDetail::class.java)
             intent.putExtra("transactionId", currTransaction.id)
             this.context.startActivity(intent)
         }
+
     }
 }

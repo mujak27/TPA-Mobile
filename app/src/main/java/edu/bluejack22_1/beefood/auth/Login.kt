@@ -75,7 +75,6 @@ class Login : AppCompatActivity() {
             .requestIdToken("447661352312-jr4uorr35qnuer6s2rlr244khom9584q.apps.googleusercontent.com")
             .requestEmail()
             .build()
-        // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 

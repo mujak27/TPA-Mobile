@@ -1,5 +1,6 @@
 package edu.bluejack22_1.beefood.sender
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.model.ClassRestaurant
 import edu.bluejack22_1.beefood.model.ClassTransaction
 import edu.bluejack22_1.beefood.model.ClassUser
+import edu.bluejack22_1.beefood.user.SenderProfile
 import kotlinx.coroutines.runBlocking
 
 class SenderHome : AppCompatActivity() {
@@ -32,7 +34,10 @@ class SenderHome : AppCompatActivity() {
         findViewById<Button>(R.id.sender_home_change_status).setOnClickListener {
             onChangeStatus()
         }
-
+        findViewById<Button>(R.id.redirect_profile_sender).setOnClickListener{
+            val intent = Intent(this, SenderProfile::class.java)
+            this.startActivity(intent)
+        }
         var currentTransaction = runBlocking { ClassTransaction.getActiveSenderTransaction() }
         if(currentTransaction != null){
             val restaurant = runBlocking { ClassRestaurant.getRestaurantById(currentTransaction.restaurantId) }

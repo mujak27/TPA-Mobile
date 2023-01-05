@@ -114,7 +114,7 @@ class Home : AppCompatActivity() {
 
         var date = Calendar.getInstance()
         Log.d("notif", "timestamp before " + date.timeInMillis.toString())
-        var timestamp = date.timeInMillis + 1 * 10 * 1000
+        var timestamp = date.timeInMillis + kotlin.random.Random.nextInt(10, 20) * 3600 * 1000
 //        date.set(2023, 1, 2, 15, 0, 1)
         Log.d("notif", "notif will be called at " + timestamp.toString())
         alarmManager.setExactAndAllowWhileIdle(

@@ -26,7 +26,7 @@ class ClassUser (
     var pass : String,
     var role : String,
     var pictureLink : String,
-    var status : String,
+    var status : String
 ) {
 
     companion object {
@@ -72,9 +72,11 @@ class ClassUser (
             return true
         }
 
-        suspend fun getUserById(id : String): ClassUser{
+        suspend fun getUserById(id : String): ClassUser?{
             Log.d("login get user by id", id)
             var userSnapshot = ClassRestaurant.db.collection("users").document(id).get().await()
+            Log.d("transaction login usersnapshot", userSnapshot.toString())
+            if(userSnapshot.data == null) return null
             var user = userFromHashmap(userSnapshot.data as kotlin.collections.HashMap<String, *>)
             return user
         }
@@ -193,6 +195,17 @@ class ClassUser (
                     "status" to newStatus
                 ))
             return translateStatus(newStatus, context)
+        }
+
+        // SELLER
+        suspend fun getIdleSender() : String{ // idle is working but is not busy
+            var userSnapshot = ClassRestaurant.db.collection("users")
+                .whereEqualTo("role", "Sender")
+                .whereEqualTo("status", "working")
+                .limit(1)
+                .get().await()
+            if(userSnapshot.documents.size == 0) return ""
+            return userSnapshot.documents.get(0).id
         }
 
     }

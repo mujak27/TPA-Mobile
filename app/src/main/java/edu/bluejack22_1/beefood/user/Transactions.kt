@@ -24,6 +24,6 @@ class Transactions : AppCompatActivity() {
         transactionRecycler = findViewById(R.id.recyclerViewTransactions)
         transactionRecycler.layoutManager = LinearLayoutManager(this)
         transactionRecycler.setHasFixedSize(true)
-        transactionRecycler.adapter = TransactionItemAdapter(transactionIds)
+        transactionRecycler.adapter = TransactionItemAdapter(transactionIds, false)
     }
 }
