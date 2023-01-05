@@ -11,11 +11,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.model.ClassMenu
+import edu.bluejack22_1.beefood.model.ClassUser
 
 class MenuItemAdapter(
     private val menus : ArrayList<ClassMenu>,
     private val onAddCart : (id : String)->Unit,
-    private val onRemoveCart : (id : String)->Unit
+    private val onRemoveCart : (id : String)->Unit,
 ) : RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
 
     lateinit var context : Context
@@ -50,6 +51,13 @@ class MenuItemAdapter(
         }
         holder.removeButton.setOnClickListener{
             onRemoveCart(currRestaurant.id)
+        }
+
+
+        val role = ClassUser.getCurrentUser()?.status!!
+        if(role == "Seller"){
+            holder.addButton.visibility = View.GONE
+            holder.removeButton.visibility = View.GONE
         }
     }
 

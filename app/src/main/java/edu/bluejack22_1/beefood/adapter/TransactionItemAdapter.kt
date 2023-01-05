@@ -15,7 +15,6 @@ import edu.bluejack22_1.beefood.model.ClassTransaction
 import edu.bluejack22_1.beefood.model.ClassUser
 import edu.bluejack22_1.beefood.user.TransactionDetail
 import kotlinx.coroutines.runBlocking
-import org.w3c.dom.Text
 
 class TransactionItemAdapter(
     private val transactionIds : ArrayList<String>,
@@ -90,6 +89,7 @@ class TransactionItemAdapter(
         }
 
         holder.widgetTransaction.setOnClickListener{
+            Log.d("transaction clicked", currTransaction.id)
             val intent = Intent(this.context, TransactionDetail::class.java)
             intent.putExtra("transactionId", currTransaction.id)
             this.context.startActivity(intent)

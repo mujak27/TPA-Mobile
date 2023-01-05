@@ -161,14 +161,16 @@ class ClassTransaction(
 
         suspend fun getActiveTransactionIds(threshold : Long, offset : Long, lastId : String) : ArrayList<String>{
             Log.d("inf scroll", "get owned transactions: " + threshold + " " + offset + " " + lastId)
+            var ownedRestaurantIds = ClassRestaurant.getOwnedRestaurantIds()
+            Log.d("transaction restaurant ids", ownedRestaurantIds.toString())
 
             val userId = ClassUser.staticUser?.id.toString()
             var transactionQuery = db
                 .collection("transactions")
-                .whereEqualTo("restaurantId", userId)
-                .whereIn("status", arrayListOf("sending", "cooking"))
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-
+                .limit(threshold)
+                .whereNotEqualTo("status", "done")
+                .whereIn("restaurantId", ownedRestaurantIds)
+//                .orderBy("status")
 
             if(offset > 0){
 
@@ -180,26 +182,29 @@ class ClassTransaction(
             }
 
             var transactionsSnapshot = transactionQuery
-                .limit(threshold)
                 .get()
                 .await()
             var transactionIds : ArrayList<String> = arrayListOf()
             for(transactionSnapshot in transactionsSnapshot.documents){
-                transactionIds.add(transactionSnapshot.id)
+                Log.d("transaction rest id", transactionSnapshot.data?.get("restaurantId").toString())
+//                if(ownedRestaurantIds.contains(transactionSnapshot.data?.get("restaurantId")))
+                    transactionIds.add(transactionSnapshot.id)
             }
             return transactionIds
         }
 
         suspend fun getPastTransactionIds(threshold : Long, offset : Long, lastId : String) : ArrayList<String>{
             Log.d("inf scroll", "get owned transactions: " + threshold + " " + offset + " " + lastId)
+            var ownedRestaurantIds = ClassRestaurant.getOwnedRestaurantIds()
+            Log.d("transaction restaurant ids", ownedRestaurantIds.toString())
 
             val userId = ClassUser.staticUser?.id.toString()
             var transactionQuery = db
                 .collection("transactions")
-                .whereEqualTo("restaurantId", userId)
+                .limit(threshold)
                 .whereEqualTo("status", "done")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-
+                .whereIn("restaurantId", ownedRestaurantIds)
+//                .orderBy("status")
 
             if(offset > 0){
 
@@ -211,15 +216,15 @@ class ClassTransaction(
             }
 
             var transactionsSnapshot = transactionQuery
-                .limit(threshold)
                 .get()
                 .await()
             var transactionIds : ArrayList<String> = arrayListOf()
             for(transactionSnapshot in transactionsSnapshot.documents){
+                Log.d("transaction rest id", transactionSnapshot.data?.get("restaurantId").toString())
+//                if(ownedRestaurantIds.contains(transactionSnapshot.data?.get("restaurantId")))
                 transactionIds.add(transactionSnapshot.id)
             }
             return transactionIds
         }
-
     }
 }

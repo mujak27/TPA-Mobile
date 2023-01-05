@@ -112,6 +112,23 @@ class ClassRestaurant(
 
 //        SELLER
 
+        suspend fun getOwnedRestaurantIds() : ArrayList<String>{
+
+            Log.d("transaction get restaurant ids", ClassUser.getCurrentUser()?.id!!)
+            var restaurantsSnapshot = db.collection("restaurants")
+                .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
+                .get()
+                .await()
+
+            var restaurantIds : ArrayList<String> = ArrayList()
+            for(restaurantSnapshot in restaurantsSnapshot.documents){
+                Log.d("transaction restaurant ", restaurantSnapshot.id)
+                restaurantIds.add(
+                    restaurantSnapshot.id
+                )
+            }
+            return restaurantIds
+        }
 
         suspend fun getOwnedRestaurants(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
             Log.d("inf scroll", "get owned restaurants: " + threshold + " " + offset + " " + lastId)
