@@ -26,8 +26,7 @@ class ClassUser (
     var pass : String,
     var role : String,
     var pictureLink : String,
-    var status : String,
-    var isSending : Boolean
+    var status : String
 ) {
 
     companion object {
@@ -46,7 +45,6 @@ class ClassUser (
                 userHashmap.get("role").toString(),
                 userHashmap.get("pictureLink").toString(),
                 userHashmap.get("status").toString(),
-                userHashmap.get("isSending").toString().toBoolean(),
             )
         }
 
@@ -74,9 +72,11 @@ class ClassUser (
             return true
         }
 
-        suspend fun getUserById(id : String): ClassUser{
+        suspend fun getUserById(id : String): ClassUser?{
             Log.d("login get user by id", id)
             var userSnapshot = ClassRestaurant.db.collection("users").document(id).get().await()
+            Log.d("transaction login usersnapshot", userSnapshot.toString())
+            if(userSnapshot.data == null) return null
             var user = userFromHashmap(userSnapshot.data as kotlin.collections.HashMap<String, *>)
             return user
         }
@@ -84,7 +84,7 @@ class ClassUser (
         suspend fun registerUser(email : String, name : String, pass : String) : Boolean{
             Log.d("register email name", email + " " + name)
             var userId = UUID.randomUUID().toString()
-            val user = ClassUser(userId, email, name, "", pass, "Customer", "", "", false)
+            val user = ClassUser(userId, email, name, "", pass, "Customer", "", "")
             var valid = true
             db.collection("users").document(userId).set(user)
                 .addOnSuccessListener {  }
@@ -198,10 +198,10 @@ class ClassUser (
         }
 
         // SELLER
-        suspend fun getIdleSender() : String{ // idle is working but is not sending any food right now
+        suspend fun getIdleSender() : String{ // idle is working but is not busy
             var userSnapshot = ClassRestaurant.db.collection("users")
-                .whereEqualTo("role", "sender")
-                .whereEqualTo("isSending", false)
+                .whereEqualTo("role", "Sender")
+                .whereEqualTo("status", "working")
                 .limit(1)
                 .get().await()
             if(userSnapshot.documents.size == 0) return ""

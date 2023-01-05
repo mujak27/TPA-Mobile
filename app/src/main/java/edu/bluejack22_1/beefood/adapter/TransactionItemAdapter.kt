@@ -12,8 +12,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.model.ClassTransaction
+import edu.bluejack22_1.beefood.model.ClassUser
 import edu.bluejack22_1.beefood.user.TransactionDetail
 import kotlinx.coroutines.runBlocking
+import org.w3c.dom.Text
 
 class TransactionItemAdapter(
     private val transactionIds : ArrayList<String>,
@@ -37,18 +39,19 @@ class TransactionItemAdapter(
         var widgetId : TextView
         var widgetStatus : TextView
         var widgetButton : Button
+        var widgetSenderName : TextView
         init {
             widgetTransaction = itemView.findViewById(R.id.item_transaction)
             widgetId = itemView.findViewById(R.id.item_transaction_id)
-            widgetStatus = itemView.findViewById<Button>(R.id.item_transaction_status)
-            widgetButton = itemView.findViewById<Button>(R.id.item_transaction_button_change_status)
+            widgetStatus = itemView.findViewById(R.id.item_transaction_status)
+            widgetButton = itemView.findViewById(R.id.item_transaction_button_change_status)
+            widgetSenderName = itemView.findViewById(R.id.item_transaction_sender_name)
         }
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var currTransaction = ClassTransaction.getTransactionById(transactionIds.get(position))
         holder.widgetId.setText(currTransaction.id)
-
 
         currTransaction.addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -65,7 +68,19 @@ class TransactionItemAdapter(
                     holder.widgetButton.visibility = View.VISIBLE
                     holder.widgetButton.setOnClickListener {
                         runBlocking { ClassTransaction.updateTransactionStatus(currTransaction.id) }
+                        holder.widgetButton.visibility = View.GONE
                     }
+                }else{
+                    holder.widgetButton.visibility = View.GONE
+                    holder.widgetSenderName.visibility = View.VISIBLE
+
+                    val senderId = snapshot.data?.get("senderId").toString()
+                    Log.d("transaction get user sender", senderId)
+                    if(senderId != null && senderId != "" && senderId.toString() != "null"){
+                        var user = runBlocking { ClassUser.getUserById(senderId) }
+                        holder.widgetSenderName.text = user?.name
+                    }
+
                 }
 
 

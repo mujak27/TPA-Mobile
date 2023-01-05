@@ -108,17 +108,30 @@ class ClassTransaction(
             }else if(transaction.status == "sending"){
                 newStatus = "done"
             }
-            if(newStatus == "") return
+            if(newStatus == "") return // already done
 
+
+            ClassUser.db.collection("transactions").document(transactionId)
+                .update(mapOf(
+                    "status" to newStatus
+                ))
             lookForSender(transactionId)
         }
 
         suspend fun matchTransactionAndSender(transactionId: String, senderId: String){
-
+            ClassUser.db.collection("transactions").document(transactionId)
+                .update(mapOf(
+                    "senderId" to senderId
+                ))
+            ClassUser.db.collection("users").document(senderId)
+                .update(mapOf(
+                    "status" to "busy"
+                ))
         }
 
         suspend fun lookForSender(transactionId: String){
             var senderId = ClassUser.getIdleSender()
+            Log.d("transaction sender", senderId)
             if(senderId == "") return
             matchTransactionAndSender(transactionId, senderId)
 
@@ -137,6 +150,10 @@ class ClassTransaction(
             Log.d("get active transaction size", ref.documents.size.toString())
             if(ref.documents.size == 0) return null
             return transactionFromHashmap(ref.documents.get(0).data as HashMap<String, *>)
+        }
+
+        suspend fun doneTransaction(senderId: String, transactionId: String){
+
         }
 
 //        SELLER

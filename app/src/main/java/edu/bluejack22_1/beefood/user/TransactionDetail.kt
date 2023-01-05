@@ -62,7 +62,7 @@ class TransactionDetail : AppCompatActivity() {
         }
         val restaurant = runBlocking { ClassRestaurant.getRestaurantById(transaction.restaurantId) }
         var senderName = getString(R.string.no_sender_yet)
-        if(transaction.senderId != "") senderName = runBlocking { ClassUser.getUserById(transaction.senderId).name }
+        if(transaction.senderId != "") senderName = runBlocking { ClassUser.getUserById(transaction.senderId)?.name!! }
 
         findViewById<TextView>(R.id.transaction_detail_data).setText(transaction.data)
         findViewById<TextView>(R.id.transaction_detail_restaurant).setText(restaurant.name)
