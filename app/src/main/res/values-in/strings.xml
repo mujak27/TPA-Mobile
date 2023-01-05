@@ -49,5 +49,7 @@
     <string name="restaurant_name">Nama Restoran</string>
     <string name="status">Status</string>
     <string name="status_here">Status Here</string>
+    
+    <string name="main">utama</string>
 
 </resources>

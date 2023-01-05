@@ -6,37 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".user.Profile">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/input_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-        <EditText
-            android:id="@+id/input_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-        <ImageView
-            android:id="@+id/profile_photo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            />
-        <Button
-            android:id="@+id/button_select_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_photo" />
-        <Button
-            android:id="@+id/button_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/update" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

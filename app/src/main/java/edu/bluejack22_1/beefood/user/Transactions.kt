@@ -12,18 +12,9 @@ import edu.bluejack22_1.beefood.model.ClassTransaction
 import kotlinx.coroutines.runBlocking
 
 class Transactions : AppCompatActivity() {
-    private lateinit var transactionRecycler : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions)
-
-        val transactionIds = runBlocking { ClassTransaction.getTransactionIds()}
-        Log.d("transactionids", transactionIds.toString())
-
-        transactionRecycler = findViewById(R.id.recyclerViewTransactions)
-        transactionRecycler.layoutManager = LinearLayoutManager(this)
-        transactionRecycler.setHasFixedSize(true)
-        transactionRecycler.adapter = TransactionItemAdapter(transactionIds, false)
     }
 }

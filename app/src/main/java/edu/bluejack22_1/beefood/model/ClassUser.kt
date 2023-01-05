@@ -11,6 +11,7 @@ import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.auth.Login
 import edu.bluejack22_1.beefood.seller.SellerHome
 import edu.bluejack22_1.beefood.sender.SenderHome
+import edu.bluejack22_1.beefood.user.CustomerMainNav
 import edu.bluejack22_1.beefood.user.Home
 import edu.bluejack22_1.beefood.user.SenderProfile
 import kotlinx.coroutines.runBlocking
@@ -159,7 +160,7 @@ class ClassUser (
             }
             if(staticUser!!.role == "Customer"){
                 Log.d("role", "customer")
-                return Home::class.java
+                return CustomerMainNav::class.java
             } else if(staticUser!!.role=="Sender"){
                 Log.d("role","Sender")
                 return SenderHome::class.java
