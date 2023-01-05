@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,6 @@ class MenuItemAdapter(
         var title : TextView
         var addButton : Button
         var removeButton : Button
-
         init {
             title = itemView.findViewById(R.id.item_menu_title)
             addButton = itemView.findViewById<Button>(R.id.item_menu_add)
@@ -54,12 +54,12 @@ class MenuItemAdapter(
             onRemoveCart(currRestaurant.id)
         }
 
-
         val role = ClassUser.getCurrentUser()?.role!!
         Log.d("transaction check role", role)
         if(role == "Seller"){
             holder.addButton.visibility = View.GONE
             holder.removeButton.visibility = View.GONE
+
         }
     }
 

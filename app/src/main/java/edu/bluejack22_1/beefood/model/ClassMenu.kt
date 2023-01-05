@@ -51,7 +51,9 @@ class ClassMenu(
 
             return menus;
         }
-
+        fun updateMenu(restaurantId: String,menuId: String, name : String){
+            db.collection("restaurants").document(restaurantId).collection("menus").document(menuId).update(name,name);
+        }
 
         suspend fun getMenusFromRestaurantIdWithOffset(restaurantId : String, threshold : Long, offset : Long, lastId : String) : ArrayList<ClassMenu>{
             Log.d("inf scroll menu rest", restaurantId)

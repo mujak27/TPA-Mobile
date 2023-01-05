@@ -9,7 +9,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_restaurant_title"
-        />
+        android:id="@+id/item_restaurant_title" />
 
 </FrameLayout>

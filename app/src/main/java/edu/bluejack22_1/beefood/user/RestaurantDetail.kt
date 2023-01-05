@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +17,9 @@ import edu.bluejack22_1.beefood.adapter.RestaurantItemAdapter
 import edu.bluejack22_1.beefood.model.ClassCart
 import edu.bluejack22_1.beefood.model.ClassMenu
 import edu.bluejack22_1.beefood.model.ClassRestaurant
+import edu.bluejack22_1.beefood.model.ClassUser
 import kotlinx.coroutines.runBlocking
+import org.w3c.dom.Text
 
 class RestaurantDetail : AppCompatActivity() {
 
@@ -108,6 +113,29 @@ class RestaurantDetail : AppCompatActivity() {
         checkoutButton = findViewById(R.id.buttonCheckout)
         checkoutButton.setOnClickListener{onCheckout()}
 
+
+        var editButton : Button
+        var editName : EditText
+        var errEdit : TextView
+        editButton = findViewById<Button>(R.id.edit_Restaurant_button)
+        editName = findViewById<EditText>(R.id.edit_restaurant_name)
+        errEdit = findViewById<TextView>(R.id.error_edit_restaurant)
+        editName.setText(restaurantTitle.text)
+        val role = ClassUser.getCurrentUser()?.role!!
+        if(role=="Customer"){
+            editButton.visibility = View.GONE
+            editName.visibility = View.GONE
+        }
+        editButton.setOnClickListener {
+            if(editName.getText().toString() == ""){
+                errEdit.setText("Fill the name to change")
+            }else{
+                ClassRestaurant.setRestaurantName(restaurantId, editName.getText().toString())
+                restaurantTitle.setText(editName.getText().toString())
+
+            }
+
+        }
 
         loadMore()
         menusRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {

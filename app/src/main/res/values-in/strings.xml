@@ -41,11 +41,11 @@
     <string name="sender_name">Sender Name</string>
     <string name="description">Description</string>
     <string name="sender_description_here">Sender Description Here</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="upload_image">Upload Image</string>
-    <string name="busy">Busy</string>
+    <string name="edit_profile">Ubah Profile</string>
+    <string name="upload_image">Ubah Foto</string>
+    <string name="busy">Sibuk</string>
     <string name="standby">Standby</string>
-    <string name="restaurant_name">Restaurant Name</string>
+    <string name="restaurant_name">Nama Restoran</string>
     <string name="status">Status</string>
     <string name="status_here">Status Here</string>
 

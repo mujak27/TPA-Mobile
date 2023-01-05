@@ -73,6 +73,10 @@ class ClassRestaurant(
             return restaurant
         }
 
+        fun setRestaurantName(id : String,name : String){
+            db.collection("restaurants").document(id).update("name",name)
+        }
+
         suspend fun getRestaurantWithBiggestRating(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
             Log.d("inf scroll", "getRestaurantWithBiggestRating: " + threshold + " " + offset + " " + lastId)
 

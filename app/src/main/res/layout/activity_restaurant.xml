@@ -16,7 +16,29 @@
             android:id="@+id/restaurantTitle"
             android:text="adfadf"
             />
-
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/edit_restaurant_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Edit Name"
+                android:textSize="12sp"
+                />
+            <Button
+                android:id="@+id/edit_Restaurant_button"
+                android:layout_marginLeft="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Edit"/>
+            <TextView
+                android:layout_marginLeft="300dp"
+                android:id="@+id/error_edit_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMenus"
             android:layout_width="match_parent"
