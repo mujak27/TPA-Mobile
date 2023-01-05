@@ -42,10 +42,10 @@
             android:id="@+id/transaction_detail_sender"
             android:text="transaction sender"
             />
-        <com.google.android.material.slider.RangeSlider
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/transaction_detail_rating"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/transaction_detail_sender_pict"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -59,6 +59,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/transaction_detail_totalprice"
             android:text="totalPrice"
+            />
+
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/transaction_detail_rating"
             />
 
 

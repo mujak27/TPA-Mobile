@@ -38,17 +38,6 @@ class classStorage {
             return imageRef.downloadUrl.await()
         }
 
-
-
-//        // Create a reference to "mountains.jpg"
-//        val mountainsRef = storageRef.child("mountains.jpg")
-//
-//        // Create a reference to 'images/mountains.jpg'
-//        val mountainImagesRef = storageRef.child("images/mountains.jpg")
-//
-//        // While the file names are the same, the references point to different files
-//        mountainsRef.name == mountainImagesRef.name // true
-//        mountainsRef.path == mountainImagesRef.path // false
     }
 
 }

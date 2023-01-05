@@ -35,6 +35,7 @@
 
     <string name="working">kerja</string>
     <string name="change_status">ubah status</string>
+    <string name="please_input_photo">masukkan foto terlebih dahulu</string>
 
     <string name="no_sender_yet">belum ada pengirim</string>
     <string name="name">Name</string>

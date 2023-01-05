@@ -16,11 +16,10 @@ class ClassTransaction(
     var customerId : String,
     var senderId : String,
     var status : String,
-    var timestamp : String
+    var timestamp : String,
+    var customerPictureLink : String,
+    var senderPictureLink : String,
 )  {
-
-
-
 
     companion object {
 
@@ -36,6 +35,8 @@ class ClassTransaction(
                 transactionSnapshot.data?.get("senderId").toString(),
                 transactionSnapshot.data?.get("status").toString(),
                 transactionSnapshot.data?.get("timestamp").toString(),
+                transactionSnapshot.data?.get("customerPictureLink").toString(),
+                transactionSnapshot.data?.get("senderPictureLink").toString(),
             )
         }
 
@@ -49,6 +50,8 @@ class ClassTransaction(
                 transactionHashmap.get("senderId").toString(),
                 transactionHashmap.get("status").toString(),
                 transactionHashmap.get("timestamp").toString(),
+                transactionHashmap.get("customerPictureLink").toString(),
+                transactionHashmap.get("senderPictureLink").toString(),
             )
         }
 
@@ -67,6 +70,8 @@ class ClassTransaction(
                 "senderId" to senderId,
                 "status" to status,
                 "timestamp" to FieldValue.serverTimestamp(),
+                "customerPictureLink" to "",
+                "senderPictureLink" to ""
             )
             var ref = db
                 .collection("transactions")
@@ -141,7 +146,7 @@ class ClassTransaction(
 //        SENDER
 
         suspend fun getActiveSenderTransaction() : ClassTransaction?{
-
+            Log.d("get active transaction user id ", ClassUser.getCurrentUser()?.id!!)
             var ref = db
                 .collection("transactions")
                 .whereEqualTo("senderId", ClassUser.getCurrentUser()?.id!!)
@@ -150,11 +155,16 @@ class ClassTransaction(
                 .await()
             Log.d("get active transaction size", ref.documents.size.toString())
             if(ref.documents.size == 0) return null
-            return transactionFromHashmap(ref.documents.get(0).data as HashMap<String, *>)
+            return transactionFromSnapshot(ref.documents.get(0))
         }
 
-        suspend fun doneTransaction(senderId: String, transactionId: String){
-
+        fun doneTransaction(transactionId: String, pictureLink : String){
+            Log.d("transaction done model", transactionId)
+            ClassUser.db.collection("transactions").document(transactionId)
+                .update(mapOf(
+                    "status" to "done",
+                    "senderPictureLink" to pictureLink
+                ))
         }
 
 //        SELLER

@@ -1,9 +1,13 @@
 package edu.bluejack22_1.beefood.user
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +36,29 @@ class TransactionDetail : AppCompatActivity() {
 
     }
 
+
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            Log.d("upload file download image", "do in bg")
+            val imageURL = urls[0]
+            var image: Bitmap? = null
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+                Log.d("upload file display image", "success")
+            }
+            catch (e: Exception) {
+                Log.e("upload file Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -40,7 +67,6 @@ class TransactionDetail : AppCompatActivity() {
         setContentView(R.layout.activity_transaction_detail)
         findViewById<TextView>(R.id.transaction_detail_id).setText(transactionId)
         var widgetTransactionDetailStatus = findViewById<TextView>(R.id.transaction_detail_status)
-
 
         widgetSlider = findViewById<RangeSlider>(R.id.transaction_detail_rating)
         widgetSlider.visibility = View.GONE
@@ -81,7 +107,9 @@ class TransactionDetail : AppCompatActivity() {
         findViewById<TextView>(R.id.transaction_detail_restaurant).setText(restaurant.name)
         findViewById<TextView>(R.id.transaction_detail_sender).setText(senderName)
 
-
+        if(!transaction.senderPictureLink.isNullOrBlank()){
+            DownloadImageFromInternet(findViewById<ImageView>(R.id.transaction_detail_sender_pict)).execute(transaction.senderPictureLink)
+        }
 
         var carts = runBlocking { ClassCart.getCartsFromTransaction(transactionId) }
         cartsRecycler = findViewById(R.id.recyclerViewCarts)

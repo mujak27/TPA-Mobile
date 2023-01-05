@@ -42,13 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/choose_photo" />
-        <ImageView
-            android:id="@+id/imageFromCamera"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            >
-        </ImageView>
 
         <Button
             android:layout_width="wrap_content"

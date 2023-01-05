@@ -7,103 +7,88 @@
     tools:context=".sender.SenderHome">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/change_status"
-                android:id="@+id/sender_home_change_status"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/sender_home_status"
-                android:text="sdfsdf"
-                />
-            <Button
-                android:id="@+id/redirect_profile_sender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sender_home_layout_transaction_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:outlineAmbientShadowColor="@color/pink_primary">
-        <LinearLayout
-
-            android:layout_width="match_parent"
+            android:text="@string/edit_profile"
+            android:id="@+id/redirect_profile_sender"
+            />
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="20dp">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/restaurant_name"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/status"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/status_here"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send to :"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Receiver"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload Picture"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Receiver"/>
-        </LinearLayout>
+            android:text="@string/change_status"
+            android:id="@+id/sender_home_change_status"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status here"/>
-    </LinearLayout>
+            android:id="@+id/sender_home_status"
+            android:text="sdfsdf"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/sender_home_layout_transaction_detail"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction_detail_id"
+                android:text="transaction id"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction_detail_status"
+                android:text="transaction status"
+                />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction_detail_data"
+                android:text="transaction data"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction_detail_restaurant"
+                android:text="transaction restaurant"
+                />
+
+
+            <ImageView
+                android:id="@+id/pickup_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sender_home_transaction_error"
+                android:text=""
+                />
+
+            <Button
+                android:id="@+id/button_select_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_photo" />
+            <Button
+                android:id="@+id/sender_home_button_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/done" />
+
+
+
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
