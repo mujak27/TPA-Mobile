@@ -30,21 +30,20 @@ class SellerFragmentActive : Fragment() {
 
 
     private fun loadMore() {
-        Log.d("layout visible index ", linearLayoutManager.findLastCompletelyVisibleItemPosition().toString())
-        Log.d("rest size ", transactionIds.size.toString())
         if (!isLoading && !isEnd && linearLayoutManager.findLastCompletelyVisibleItemPosition() == transactionIds.size-1) {
             isLoading = true
             var lastId = ""
             if(transactionIds.size > 0) lastId = transactionIds.get(transactionIds.size-1)
             var newRestaurants = runBlocking { ClassTransaction.getActiveTransactionIds(threshold, offset, lastId) }
             if(newRestaurants.size > 0){
-                Log.d("inf scroll", "exists")
                 if(newRestaurants.size < threshold){
                     isEnd = true;
                 }
+                var lastSize = transactionIds.size - 1
                 transactionIds.addAll(newRestaurants)
                 transactionRecycler.adapter = TransactionItemAdapter(transactionIds, true)
                 offset += threshold
+                linearLayoutManager.scrollToPosition(lastSize-3)
             }
             Log.d("inf scroll", "load more new offset " + offset.toString())
             isLoading = false

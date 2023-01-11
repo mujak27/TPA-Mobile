@@ -26,6 +26,7 @@ class ClassMenu(
                 restaurantHashmap.get("ownerId").toString(),
                 restaurantHashmap.get("rating").toString().toFloat(),
                 restaurantHashmap.get("desc").toString(),
+                restaurantHashmap.get("imageLink").toString(),
             )
         }
 
@@ -87,6 +88,16 @@ class ClassMenu(
             val menuSnapshot = db.collection("restaurants").document(restaurantId).collection("menus").document(menuId).get().await()
             return menuFromSnapshot(menuSnapshot)
         }
+
+
+        fun updateMenu(restaurantId: String, id : String, name : String, price: Int, pictureLink : String){
+            ClassRestaurant.db.collection("restaurants").document(restaurantId).collection("menus").document(id).update(mapOf(
+                "name" to name,
+                "price" to price.toString(),
+                "pictureLink" to pictureLink,
+            ))
+        }
+
 
     }
 }

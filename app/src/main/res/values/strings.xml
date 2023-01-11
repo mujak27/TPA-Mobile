@@ -5,7 +5,8 @@
     <string name="search">search</string>
     <string name="update">update</string>
 
-    <string name="forgot">forgot password</string>
+    <string name="forgot">forgot</string>
+    <string name="forgot_password">forgot password</string>
 
     <string name="not_found">not_found</string>
     <string name="has_an_account">has an account?</string>

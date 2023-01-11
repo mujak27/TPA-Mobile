@@ -49,8 +49,6 @@ class CartItemAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var currCart = carts.get(position)
         var menu = runBlocking { ClassMenu.getMenuById(restaurantId, currCart.menuId)}
-        Log.d("cart adapter menu", menu.name + " " + menu.price.toString())
-        Log.d("widget quantity", holder.price.toString())
         holder.name.setText(menu.name)
         holder.price.setText(menu.price.toString())
         holder.quantity.setText(currCart.quantity.toString())

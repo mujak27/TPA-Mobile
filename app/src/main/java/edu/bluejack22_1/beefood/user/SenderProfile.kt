@@ -31,10 +31,6 @@ class SenderProfile : AppCompatActivity() {
         name.setText(user?.name.toString())
         desc.setText(user?.desc.toString())
         val img : ImageView = findViewById<ImageView>(R.id.sender_profile_pic)
-//        val executor = Executors.newSingleThreadExecutor()
-//        val inp = URL(url).openStream()
-//        val bMap = BitmapFactory.decodeStream(inp)
-//        img.setImageBitmap(bMap)
         DownloadImageFromInternet(findViewById(R.id.sender_profile_pic)).execute(url)
     }
     @SuppressLint("StaticFieldLeak")
@@ -63,11 +59,6 @@ class SenderProfile : AppCompatActivity() {
         setContentView(R.layout.activity_sender_profile)
         setTextProfile()
         val img : ImageView = findViewById<ImageView>(R.id.sender_profile_pic)
-//        if(!user?.pictureLink.isNullOrBlank() && user?.pictureLink != "null" && user?.pictureLink.toString() != ""){
-//            val newurl = URL(user?.pictureLink.toString())
-//            val bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream())
-//            img.setImageBitmap(bitmap)
-//        }
         findViewById<Button>(R.id.redirect_edit).setOnClickListener{
             val intent = Intent(this, SenderProfileEdit::class.java)
 

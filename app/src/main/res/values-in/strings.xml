@@ -5,7 +5,8 @@
     <string name="search">cari</string>
     <string name="update">perbarui</string>
 
-    <string name="forgot">lupa password</string>
+    <string name="forgot">lupa</string>
+    <string name="forgot_password">lupa password</string>
 
     <string name="not_found">tidak ketemu</string>
     <string name="has_an_account">sudah memiliki account?</string>

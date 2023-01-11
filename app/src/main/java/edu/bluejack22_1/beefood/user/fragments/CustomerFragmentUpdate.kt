@@ -41,12 +41,6 @@ class CustomerFragmentUpdate : Fragment() {
 
         view.findViewById<EditText>(R.id.input_name).setText(user?.name)
         view.findViewById<EditText>(R.id.input_desc).setText(user?.desc)
-        Log.d("upload file current user", user?.pictureLink!!)
-        if(!user?.pictureLink.isNullOrBlank() && user?.pictureLink != "null" && user?.pictureLink.toString() != ""){
-//            val newurl = URL(user?.pictureLink)
-//            val bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream())
-//            imageView.setImageBitmap(bitmap)
-        }
 
         DownloadImageFromInternet(imageView).execute(url)
 

@@ -22,21 +22,11 @@ import java.net.URL
 class SenderProfileEdit : AppCompatActivity() {
 
     val user= ClassUser.getCurrentUser()
-    var image: Bitmap? = null
     val url = user?.pictureLink.toString()
+    lateinit var imageView : ImageView
+    lateinit var widgetEditButton : Button
+    var isImageChanged = false
 
-    fun setInitValue(){
-        val name : EditText = findViewById(R.id.edit_profile_name)
-        val desc : EditText = findViewById(R.id.edit_profile_desc)
-        var pL = findViewById<EditText>(R.id.edit_picLink)
-        name.setText(user?.name.toString())
-        desc.setText(user?.desc.toString())
-        pL.setText(user?.pictureLink.toString())
-        val img : ImageView = findViewById<ImageView>(R.id.edit_profile_pic)
-        DownloadImageFromInternet(findViewById(R.id.edit_profile_pic)).execute(url)
-    }
-    @SuppressLint("StaticFieldLeak")
-    @Suppress("DEPRECATION")
     private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
 
         override fun doInBackground(vararg urls: String): Bitmap? {
@@ -57,14 +47,11 @@ class SenderProfileEdit : AppCompatActivity() {
         }
     }
 
-    lateinit var imageView : ImageView
-    var isImageChanged = false
-
 
     fun onUpdate(){
+
         var name = findViewById<EditText>(R.id.edit_profile_name).text.toString()
         var desc = findViewById<EditText>(R.id.edit_profile_desc).text.toString()
-        var pL = findViewById<EditText>(R.id.edit_picLink).text.toString()
         var pictureLink = ClassUser.getCurrentUser()?.pictureLink!!
         if(isImageChanged){
             pictureLink = runBlocking { classStorage.uploadPhoto(imageView).toString() }
@@ -90,38 +77,19 @@ class SenderProfileEdit : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sender_profile_edit)
-        setInitValue()
-        var err : TextView = findViewById(R.id.error_edit)
-        err.setText("")
 
+        val name : EditText = findViewById(R.id.edit_profile_name)
+        val desc : EditText = findViewById(R.id.edit_profile_desc)
+        imageView = findViewById(R.id.edit_profile_pic)
+        DownloadImageFromInternet(imageView).execute(url)
+        name.setText(user?.name.toString())
+        desc.setText(user?.desc.toString())
 
-//        imageView = findViewById(R.id.edit_profile_pic)
-//        if(!user?.pictureLink.isNullOrBlank() && user?.pictureLink != "null" && user?.pictureLink.toString() != ""){
-//            val newurl = URL(user?.pictureLink)
-//            val bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream())
-//            img.setImageBitmap(bitmap)
-//        }
         findViewById<Button>(R.id.edit_upload_picture).setOnClickListener {
             onSelectPhoto()
         }
         findViewById<Button>(R.id.sender_edit_profile_button).setOnClickListener {
-
-
-            var name = findViewById<EditText>(R.id.edit_profile_name).text.toString()
-            var desc = findViewById<EditText>(R.id.edit_profile_desc).text.toString()
-            var pL = findViewById<EditText>(R.id.edit_picLink).text.toString()
-            if(name != "" && desc != ""){
-                var pictureLink = ClassUser.getCurrentUser()?.pictureLink!!
-                ClassUser.updateUser(name, desc, pL)
-                ClassUser.staticUser?.pictureLink = pL
-                ClassUser.staticUser?.desc = desc
-                ClassUser.staticUser?.name = name
-
-                val intent = Intent(this,SenderProfile::class.java)
-                this.startActivity(intent)
-            }else{
-                err.setText("Fill desc aand name")
-            }
+            onUpdate()
 
         }
     }

@@ -14,7 +14,8 @@ class ClassRestaurant(
     var name : String,
     var ownerId : String,
     var rating : Float,
-    var desc : String
+    var desc : String,
+    var pictureLink : String
 ) {
 
     companion object{
@@ -29,6 +30,7 @@ class ClassRestaurant(
                 restaurantHashmap.get("ownerId").toString(),
                 restaurantHashmap.get("rating").toString().toFloat(),
                 restaurantHashmap.get("desc").toString(),
+                restaurantHashmap.get("pictureLink").toString(),
             )
         }
 
@@ -39,6 +41,7 @@ class ClassRestaurant(
                 restaurantSnapshot.data?.get("ownerId").toString(),
                 restaurantSnapshot.data?.get("rating").toString().toFloat(),
                 restaurantSnapshot.data?.get("desc").toString(),
+                restaurantSnapshot.data?.get("pictureLink").toString(),
             )
         }
 
@@ -73,8 +76,11 @@ class ClassRestaurant(
             return restaurant
         }
 
-        fun setRestaurantName(id : String,name : String){
-            db.collection("restaurants").document(id).update("name",name)
+        fun updateRestaurant(id : String, name : String, pictureLink : String){
+            db.collection("restaurants").document(id).update(mapOf(
+                "name" to name,
+                "pictureLink" to pictureLink,
+            ))
         }
 
         suspend fun getRestaurantWithBiggestRating(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{

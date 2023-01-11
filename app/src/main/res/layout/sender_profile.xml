@@ -25,10 +25,9 @@
         </LinearLayout>
             <ImageView
                 android:id="@+id/seller_profile_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:textAlignment="center"
-                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250">
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:textAlignment="center">
             </ImageView>
             <LinearLayout
                 android:layout_width="wrap_content"

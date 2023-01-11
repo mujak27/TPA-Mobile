@@ -52,10 +52,11 @@ class Search : AppCompatActivity() {
             var newRestaurants = runBlocking { ClassRestaurant.getRestaurantByName(searchText, restaurantThreshold, restaurantOffset, lastId) }
             if(newRestaurants.size > 0){
                 if(newRestaurants.size < restaurantThreshold) isEnd = true;
-//                restaurants.addAll(newRestaurants)
+                var lastSize = restaurants.size - 1
                 restaurants = newRestaurants
                 restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
                 restaurantOffset += restaurantThreshold
+                linearLayoutManager.scrollToPosition(lastSize-3)
             }
             Log.d("inf scroll", "load more new offset " + restaurantOffset.toString())
             isLoading = false

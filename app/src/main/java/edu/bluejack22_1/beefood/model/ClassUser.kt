@@ -53,6 +53,11 @@ class ClassUser (
         fun setUser(user : ClassUser){
             this.staticUser = user
         }
+        fun refreshUser(){
+            setUser(
+                runBlocking { getUserById(staticUser?.id!!) } as ClassUser
+            )
+        }
         suspend fun getUserByEmail(email :  String) : ClassUser {
 
             Log.d("login get user by email", email)
@@ -63,7 +68,6 @@ class ClassUser (
             var user = userFromHashmap(userSnapshot.documents.get(0).data as kotlin.collections.HashMap<String, *>)
             return user
         }
-
         suspend fun isEmailExist(email : String) : Boolean {
             var userSnapshot = db.collection("users")
                 .whereEqualTo("email", email)
@@ -105,6 +109,7 @@ class ClassUser (
                     Log.d("user x", x.toString())
                     Log.d("user", x.user.toString())
                     valid = true
+                    setUser(getUserByEmail(email))
                     Log.d("login", "auth found")
                 }catch (e : Exception){
                     Log.d("login", "auth not found")
@@ -143,6 +148,7 @@ class ClassUser (
                     "desc" to desc,
                     "pictureLink" to pictureLink
                 ))
+            refreshUser()
         }
 
         fun getCurrentUser() : ClassUser?{

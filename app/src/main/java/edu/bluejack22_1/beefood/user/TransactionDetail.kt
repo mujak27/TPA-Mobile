@@ -12,13 +12,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.RangeSlider
-import com.google.android.material.slider.Slider
 import edu.bluejack22_1.beefood.R
 import edu.bluejack22_1.beefood.adapter.CartItemAdapter
-import edu.bluejack22_1.beefood.model.ClassCart
-import edu.bluejack22_1.beefood.model.ClassRestaurant
-import edu.bluejack22_1.beefood.model.ClassTransaction
-import edu.bluejack22_1.beefood.model.ClassUser
+import edu.bluejack22_1.beefood.model.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
@@ -28,6 +24,7 @@ class TransactionDetail : AppCompatActivity() {
     private lateinit var cartsRecycler : RecyclerView
 
     var totalPrice = 0
+    var isAlreadyRated = false
 
     fun addTotalPrice(price : Int){
         totalPrice = totalPrice + price
@@ -68,33 +65,8 @@ class TransactionDetail : AppCompatActivity() {
         findViewById<TextView>(R.id.transaction_detail_id).setText(transactionId)
         var widgetTransactionDetailStatus = findViewById<TextView>(R.id.transaction_detail_status)
 
-        widgetSlider = findViewById<RangeSlider>(R.id.transaction_detail_rating)
-        widgetSlider.visibility = View.GONE
-        widgetSlider.setValueFrom(0f)
-        widgetSlider.setValueTo(5f)
-        widgetSlider.addOnChangeListener { slider, value, fromUser ->
-            Log.d("slider change", value.toString())
-        }
-
         val transactionRef = ClassTransaction.getTransactionById(transactionId)
 
-        transactionRef.addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                return@addSnapshotListener
-            }
-
-            if (snapshot != null && snapshot.exists()) {
-                widgetTransactionDetailStatus.setText(
-                    ClassRestaurant.translateTransactionStatus(
-                        snapshot.data?.get("status").toString(), this)
-                    )
-                if(snapshot.data?.get("status").toString() == "completed"){
-                    widgetSlider.visibility = View.VISIBLE
-                }
-            } else {
-                widgetTransactionDetailStatus.setText("not found")
-            }
-        }
 
         val transaction = runBlocking {
             ClassTransaction.transactionFromSnapshot(transactionRef.get().await())
@@ -118,6 +90,59 @@ class TransactionDetail : AppCompatActivity() {
         cartsRecycler.adapter = CartItemAdapter(transaction.restaurantId, carts, ::addTotalPrice)
 
 
+        var rating = runBlocking { ClassRating.getMyRating(restaurant.id) }
+        Log.d("rating", rating.toString())
+        widgetSlider = findViewById(R.id.transaction_detail_rating)
+        widgetSlider.visibility = View.GONE
+        widgetSlider.setValueFrom(0f)
+        widgetSlider.setValueTo(5f)
+        widgetSlider.addOnChangeListener { slider, value, fromUser ->
+            Log.d("slider change curr rating", rating.toString())
+            if(rating == -1f){
+                rating = value
+                Log.d("slider change", value.toString())
+                widgetSlider.isEnabled = false
+                runBlocking {
+                    ClassRating.createRating(restaurant.id, rating)
+                }
+            }
+        }
 
+//        widgetSlider.onFocusChangeListener = View.OnFocusChangeListener() { view, b ->
+//
+//            Log.d("slider change 1", rating.toString())
+//            if(b){
+//                Log.d("slider change 2", rating.toString())
+//                rating = widgetSlider.values.get(0)
+//                if(rating == -1f){
+//                    Log.d("slider change 3", rating.toString())
+//                }
+//            }
+//        }
+        if (rating != -1f){
+            isAlreadyRated = true
+            widgetSlider.values = listOf(rating)
+            widgetSlider.isEnabled = false
+        }
+
+
+
+        transactionRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                widgetTransactionDetailStatus.setText(
+                    ClassRestaurant.translateTransactionStatus(
+                        snapshot.data?.get("status").toString(), this)
+                )
+                if(snapshot.data?.get("status").toString() == "done"){
+                    widgetSlider.visibility = View.VISIBLE
+                }
+            } else {
+                widgetTransactionDetailStatus.setText("not found")
+            }
+        }
     }
 }

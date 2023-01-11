@@ -16,29 +16,45 @@
             android:id="@+id/restaurantTitle"
             android:text="adfadf"
             />
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:id="@+id/edit_restaurant"
+        >
+
             <EditText
                 android:id="@+id/edit_restaurant_name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:hint="Edit Name"
+                android:hint="name"
                 android:textSize="12sp"
                 />
-            <Button
-                android:id="@+id/edit_Restaurant_button"
-                android:layout_marginLeft="200dp"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="Edit"/>
             <TextView
                 android:layout_marginLeft="300dp"
                 android:id="@+id/error_edit_restaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        </RelativeLayout>
+            <ImageView
+                android:id="@+id/restaurant_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                />
+
+            <Button
+                android:id="@+id/button_select_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_photo" />
+
+            <Button
+                android:id="@+id/edit_Restaurant_button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Edit"/>
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMenus"
             android:layout_width="match_parent"

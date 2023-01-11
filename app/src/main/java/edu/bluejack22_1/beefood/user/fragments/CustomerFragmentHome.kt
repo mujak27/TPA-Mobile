@@ -49,26 +49,22 @@ class CustomerFragmentHome : Fragment() {
 
 
     private fun loadMore() {
-        Log.d("layout visible index ", linearLayoutManager.findLastCompletelyVisibleItemPosition().toString())
-        Log.d("rest size ", restaurants.size.toString())
         if (!isLoading && !isEnd && linearLayoutManager.findLastCompletelyVisibleItemPosition() == restaurants.size-1) {
             isLoading = true
-            loadingText.setText("loading more")
             var lastId = ""
             if(restaurants.size > 0) lastId = restaurants.get(restaurants.size-1).id
             var newRestaurants = runBlocking { ClassRestaurant.getRestaurantWithBiggestRating(restaurantThreshold, restaurantOffset, lastId) }
             if(newRestaurants.size > 0){
-                Log.d("inf scroll", "exists")
                 if(newRestaurants.size < restaurantThreshold){
                     isEnd = true;
                 }
+                var lastSize = restaurants.size -1;
                 restaurants.addAll(newRestaurants)
                 restaurantsRecycler.adapter = RestaurantItemAdapter(restaurants)
                 restaurantOffset += restaurantThreshold
+                linearLayoutManager.scrollToPosition(lastSize-3)
             }
-            Log.d("inf scroll", "load more new offset " + restaurantOffset.toString())
             isLoading = false
-            loadingText.setText("")
         }
     }
 
