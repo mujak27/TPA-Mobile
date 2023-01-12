@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="20dp"
         >
@@ -21,7 +21,7 @@
             />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="15dp"
             >
@@ -47,24 +47,32 @@
                 android:layout_height="100dp"
                 />
 
-            <TextView
-                android:id="@+id/checkout_total_price"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="totalPrice"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/checkout"
-                android:textSize="16sp"
-                android:id="@+id/checkout_button"
-                android:layout_gravity="right"
-                android:backgroundTint="@color/pink_p_darker"
-                />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/checkout_total_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="totalPrice"
+                    android:textAlignment="textEnd"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/checkout_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:backgroundTint="@color/pink_p_darker"
+                    android:layoutDirection="inherit"
+                    android:text="@string/checkout"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
 
