@@ -7,7 +7,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,8 +19,9 @@
                 android:backgroundTint="@color/pink_primary">
                 <Button
                     android:id="@+id/back_button_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="65dp"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/pink_p_darker"
                     android:text="Back">
 
                 </Button>
@@ -29,37 +31,54 @@
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:textAlignment="center"
-                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250">
-            </ImageView>
+                android:layout_gravity="center"
+                android:src="@drawable/tumblr_972d42f174ee7c2ba0d6f94794256cae_0186f44a_250"
+                android:layout_marginBottom="20dp"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/border"
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/name" />
+                    android:text="@string/name"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    />
                 <TextView
                     android:id="@+id/profile_sender_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/sender_name"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:marginBottom="5dp"
                     android:text="@string/description"/>
                 <TextView
                     android:id="@+id/profile_sender_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/sender_description_here"/>
 
                 <Button
                     android:id="@+id/redirect_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_profile" />
+                    android:text="@string/edit_profile"
+                    android:backgroundTint="@color/pink_p_darker"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="15dp"/>
             </LinearLayout>
         </LinearLayout>
 
