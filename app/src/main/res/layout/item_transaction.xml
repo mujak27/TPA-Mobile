@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_gravity="center_vertical"
     android:id="@+id/item_transaction"
     >
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
@@ -15,25 +16,43 @@
             android:id="@+id/item_transaction_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="id" />
-        <TextView
+            android:text="id"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginBottom="10dp"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/item_transaction_status"
-            android:text="status"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_transaction_button_change_status"
-            android:text="change status"
-            android:visibility="gone"
-            />
+            android:orientation="horizontal"
+
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:id="@+id/item_transaction_status"
+                android:text="status"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textAlignment="textStart"
+                tools:ignore="RtlCompat" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_transaction_button_change_status"
+                android:text="change status"
+                android:backgroundTint="@color/pink_p_darker"
+                android:visibility="gone"
+
+                />
+        </LinearLayout>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/item_transaction_sender_name"
             android:text="sender name"
+            android:textSize="20sp"
             android:visibility="gone"
             />
 
