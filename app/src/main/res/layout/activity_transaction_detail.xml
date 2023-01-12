@@ -9,40 +9,83 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="20dp"
         >
         <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/transaction_detail_id"
             android:text="transaction id"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            android:textSize="26sp"
             />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation = "horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurant"
+                android:gravity="left"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction_detail_restaurant"
+                android:text="transaction restaurant"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation = "horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sender"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction_detail_sender"
+                android:text="transaction sender"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="right"
+                />
+        </RelativeLayout>
         <TextView
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/transaction_detail_status"
             android:text="transaction status"
+            android:textAlignment="center"
             />
 
         <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/transaction_detail_data"
             android:text="transaction data"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/transaction_detail_restaurant"
-            android:text="transaction restaurant"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/transaction_detail_sender"
-            android:text="transaction sender"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
             />
         <ImageView
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/transaction_detail_sender_pict"
@@ -52,13 +95,20 @@
             android:id="@+id/recyclerViewCarts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@drawable/border"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/transaction_detail_totalprice"
+            android:layout_marginTop="10dp"
             android:text="totalPrice"
+            android:textAlignment="textEnd"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:id="@+id/transaction_detail_totalprice"
+            android:layout_marginBottom="10dp"
             />
 
         <com.google.android.material.slider.RangeSlider
