@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-
             android:layout_marginBottom="10dp">
             <TextView
                 android:layout_width="300dp"
@@ -39,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_transaction_button_change_status"
-                android:text="change status"
+                android:text="@string/change_status"
                 android:backgroundTint="@color/pink_p_darker"
                 android:visibility="gone"
 

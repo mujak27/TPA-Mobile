@@ -106,8 +106,8 @@ class CustomerFragmentHome : Fragment() {
     {
         Log.d("notif", "schedule called")
         val intent = Intent(activity?.applicationContext, Notification::class.java)
-        val title = "beefood notification"
-        val message = "order your food"
+        val title = getString(R.string.notif_title)
+        val message = getString(R.string.order_food)
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
 

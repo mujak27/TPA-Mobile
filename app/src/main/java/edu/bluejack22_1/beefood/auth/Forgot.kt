@@ -29,11 +29,11 @@ class Forgot : AppCompatActivity() {
         val email = widgetEmail.text.toString()
         val isEmailExist = runBlocking { ClassUser.isEmailExist(email) }
         if(!isEmailExist){
-            widgetErrorText.setText("email not found")
+            widgetErrorText.setText(R.string.email_not_found)
             return
         }
-        widgetErrorText.setText("email sent")
         ClassUser.sendForgotPasswordEmail(email)
+        widgetErrorText.setText(getString(R.string.email_sent))
         onRedirectLogin()
 
     }

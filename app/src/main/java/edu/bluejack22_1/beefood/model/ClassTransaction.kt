@@ -1,5 +1,6 @@
 package edu.bluejack22_1.beefood.model
 
+import android.content.Context
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -7,6 +8,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Transaction
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import edu.bluejack22_1.beefood.R
 import kotlinx.coroutines.tasks.await
 
 class ClassTransaction(
@@ -202,6 +204,13 @@ class ClassTransaction(
                     transactionIds.add(transactionSnapshot.id)
             }
             return transactionIds
+        }
+
+        fun translateTransactionStatus(status : String, context : Context) : String{
+            if(status.toLowerCase() == "done") return context.getString(R.string.done)
+            if(status.toLowerCase() == "cooking") return context.getString(R.string.cooking)
+            if(status.toLowerCase() == "sending") return context.getString(R.string.sending)
+            return ""
         }
 
         suspend fun getPastTransactionIds(threshold : Long, offset : Long, lastId : String) : ArrayList<String>{

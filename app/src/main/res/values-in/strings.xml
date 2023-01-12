@@ -5,8 +5,14 @@
     <string name="search">cari</string>
     <string name="update">perbarui</string>
 
+    <!-- register    -->
+    <string name="email_taken">email sudah diambil</string>
+
+    <!-- forgot-->
     <string name="forgot">lupa</string>
     <string name="forgot_password">lupa password</string>
+    <string name="email_not_found">email tidak ditemukan</string>
+    <string name="email_sent">email sudah dikirim</string>
 
     <string name="not_found">tidak ketemu</string>
     <string name="has_an_account">sudah memiliki account?</string>
@@ -39,10 +45,10 @@
     <string name="please_input_photo">masukkan foto terlebih dahulu</string>
 
     <string name="no_sender_yet">belum ada pengirim</string>
-    <string name="name">Name</string>
-    <string name="sender_name">Sender Name</string>
-    <string name="description">Description</string>
-    <string name="sender_description_here">Sender Description Here</string>
+    <string name="name">nama</string>
+    <string name="sender_name">nama pengirim</string>
+    <string name="description">deskripsi</string>
+    <string name="sender_description_here">deskripsi pengirim</string>
     <string name="edit_profile">Ubah Profile</string>
     <string name="upload_image">Ubah Foto</string>
     <string name="busy">Sibuk</string>
@@ -52,5 +58,17 @@
     <string name="status_here">Status Here</string>
     
     <string name="main">utama</string>
+
+    <!-- notif   -->
+    <string name="notif_title">notifikasi beefood</string>
+    <string name="order_food">pesan makananmu</string>
+    <string name="restaurant">restoran</string>
+    <string name="sender">pengirim</string>
+    <string name="update_customer">perbarui pelanggan</string>
+    <string name="login">masuk</string>
+    <string name="email">email</string>
+    <string name="register">daftar</string>
+    <string name="password">kata kunci</string>
+    <string name="your_rating">ratingmu</string>
 
 </resources>

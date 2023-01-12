@@ -19,7 +19,7 @@ class ClassCart(
 
 
         fun cartFromHashmap(cartHashmap : kotlin.collections.HashMap<String, *>) : ClassCart{
-            Log.d("cart hashmap", cartHashmap.toString())
+//            Log.d("cart hashmap", cartHashmap.toString())
             return ClassCart(
                 cartHashmap.get("menuId").toString(),
                 cartHashmap.get("quantity").toString().toInt(),

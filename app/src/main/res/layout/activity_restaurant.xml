@@ -29,19 +29,18 @@
             android:background="@drawable/border"
             android:padding="15dp"
             >
-            <TextView
-                android:layout_marginLeft="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
             <EditText
                 android:id="@+id/edit_restaurant_name"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:hint="name"
+                android:hint="@string/name"
                 android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/restaurant_rating"
+                android:text="adfadf"
                 />
             <TextView
                 android:layout_marginLeft="5dp"

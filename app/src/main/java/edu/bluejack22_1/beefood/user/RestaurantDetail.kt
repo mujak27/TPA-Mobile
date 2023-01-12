@@ -82,24 +82,28 @@ class RestaurantDetail : AppCompatActivity() {
     }
 
 
-    fun onAddCart(id : String){
+    fun onAddCart(id : String, countText : TextView){
         var cartItem = carts.firstOrNull{it.menuId == id}
         if(cartItem == null){
             carts.add(ClassCart(id, 1))
+            countText.setText("1")
         }else{
             cartItem.quantity++;
+            countText.setText(cartItem?.quantity!!.toString())
         }
         var check = carts.first{it.menuId == id}
 
     }
 
-    fun onRemoveCart(id : String){
+    fun onRemoveCart(id : String, countText : TextView){
         var cartItem = carts.firstOrNull{it.menuId == id}
         if(cartItem == null) return;
         if(cartItem.quantity == 1){
             carts.remove(cartItem)
+            countText.setText("0")
         }else{
             cartItem.quantity--;
+            countText.setText(cartItem?.quantity!!.toString())
         }
     }
 
@@ -186,6 +190,8 @@ class RestaurantDetail : AppCompatActivity() {
         findViewById<Button>(R.id.button_select_photo).setOnClickListener {
             onSelectPhoto()
         }
+
+        findViewById<TextView>(R.id.restaurant_rating).text = restaurant.rating.toString()
 
         editName.setText(restaurantTitle.text)
         val role = ClassUser.getCurrentUser()?.role!!

@@ -23,8 +23,8 @@ class CartItemAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         for (cart in carts){
-            Log.d("cart item", cart.toString())
-            Log.d("cart item", cart.menuId)
+//            Log.d("cart item", cart.toString())
+//            Log.d("cart item", cart.menuId)
         }
         this.context = parent.context
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)

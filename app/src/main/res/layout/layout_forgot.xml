@@ -55,7 +55,7 @@
                 android:id="@+id/redirectLoginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="login"
+                android:text="@string/login"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/pink_p_darker"
                 android:textSize="18sp"/>

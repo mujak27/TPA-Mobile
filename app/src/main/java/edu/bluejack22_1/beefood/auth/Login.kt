@@ -1,5 +1,6 @@
 package edu.bluejack22_1.beefood.auth
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +37,7 @@ class Login : AppCompatActivity() {
     val db = Firebase.firestore
     val auth = Firebase.auth
 
+    @SuppressLint("SetTextI18n")
     fun onLogin(){
         if(auth.currentUser != null) auth.signOut()
         var email = findViewById<EditText>(R.id.input_email).text.toString()
@@ -43,8 +45,6 @@ class Login : AppCompatActivity() {
         Log.d("name", email)
 
         if (ClassUser.loginUser(email, pass)){
-            Log.d("login", "found")
-            errorText.setText("found")
             updateUI()
         }else{
             Log.d("login", "not found")
@@ -82,6 +82,9 @@ class Login : AppCompatActivity() {
         signInButton.setSize(SignInButton.SIZE_STANDARD)
 
         signInButton.setOnClickListener{
+            if(GoogleSignIn.getLastSignedInAccount(this) != null){
+                mGoogleSignInClient.signOut()
+            }
             val signInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(signInIntent, 123 )
         }

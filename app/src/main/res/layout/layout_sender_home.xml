@@ -7,30 +7,47 @@
     tools:context=".sender.SenderHome">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="20dp"
         >
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/edit_profile"
             android:id="@+id/redirect_profile_sender"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_status"
-            android:id="@+id/sender_home_change_status"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sender_home_status"
-            android:text="sdfsdf"
+            android:backgroundTint="@color/pink_p_darker"
+            android:layout_marginBottom="10dp"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_status"
+                android:id="@+id/sender_home_change_status"
+                android:backgroundTint="@color/pink_p_darker"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sender_home_status"
+                android:text="sdfsdf"
+                android:gravity="center"
+                android:textAlignment="textEnd"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:background="@drawable/border"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/sender_home_layout_transaction_detail"
@@ -40,51 +57,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/transaction_detail_id"
-                android:text="transaction id"
+                android:text="id"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5sp"
                 />
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/transaction_detail_status"
-                android:text="transaction status"
-                />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transaction_detail_status"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:layout_marginBottom="5sp"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    />
 
-            <TextView
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transaction_detail_data"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:layout_marginBottom="5sp"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/transaction_detail_data"
-                android:text="transaction data"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/transaction_detail_restaurant"
-                android:text="transaction restaurant"
-                />
-
-
-            <ImageView
-                android:id="@+id/pickup_photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sender_home_transaction_error"
-                android:text=""
-                />
+                android:layout_marginTop ="10sp"
+                android:layout_marginBottom="15sp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/restaurant"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transaction_detail_restaurant"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/button_select_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/choose_photo" />
+                android:text="@string/choose_photo"
+                android:backgroundTint="@color/pink_p_darker"/>
+            <ImageView
+                android:id="@+id/pickup_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sender_home_transaction_error"
+                android:text=""
+                android:textColor="@color/red_error"
+                />
             <Button
                 android:id="@+id/sender_home_button_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/done" />
+                android:text="@string/done"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/pink_p_darker"/>
 
 
 

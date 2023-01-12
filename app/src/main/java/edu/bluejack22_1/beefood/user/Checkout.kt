@@ -47,7 +47,6 @@ class Checkout : AppCompatActivity() {
         totalPrice += price
 
         widgetTotalPrice = findViewById(R.id.checkout_total_price)
-        Log.d("transaction checkout total price", totalPrice.toString())
         widgetTotalPrice.setText(totalPrice.toString())
     }
     fun onCheckout(){
@@ -76,9 +75,7 @@ class Checkout : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 101){
-            Log.d("upload file on activ result", "req code 101")
             var pic : Bitmap? = data?.getParcelableExtra<Bitmap>("data")
-            Log.d("upload file bitmap", pic.toString())
             imageView.setImageBitmap(pic)
         }
     }

@@ -37,7 +37,7 @@ class Register : AppCompatActivity() {
         }
 
         if(ClassUser.isEmailExist(name)){
-            errorText.setText("email already taken!")
+            errorText.setText(R.string.email_taken)
             return
         }
 

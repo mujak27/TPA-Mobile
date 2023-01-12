@@ -21,6 +21,7 @@ import kotlinx.coroutines.tasks.await
 class TransactionDetail : AppCompatActivity() {
 
     lateinit var widgetSlider : RangeSlider
+    lateinit var ratingTextView: TextView
     private lateinit var cartsRecycler : RecyclerView
 
     var totalPrice = 0
@@ -79,6 +80,7 @@ class TransactionDetail : AppCompatActivity() {
         findViewById<TextView>(R.id.transaction_detail_restaurant).setText(restaurant.name)
         findViewById<TextView>(R.id.transaction_detail_sender).setText(senderName)
 
+        ratingTextView = findViewById(R.id.rating_text)
         if(!transaction.senderPictureLink.isNullOrBlank()){
             DownloadImageFromInternet(findViewById<ImageView>(R.id.transaction_detail_sender_pict)).execute(transaction.senderPictureLink)
         }
@@ -97,31 +99,21 @@ class TransactionDetail : AppCompatActivity() {
         widgetSlider.setValueFrom(0f)
         widgetSlider.setValueTo(5f)
         widgetSlider.addOnChangeListener { slider, value, fromUser ->
-            Log.d("slider change curr rating", rating.toString())
             if(rating == -1f){
                 rating = value
-                Log.d("slider change", value.toString())
                 widgetSlider.isEnabled = false
                 runBlocking {
+                    Log.d("rating", rating.toString());
+                    ratingTextView.setText(rating.toString())
                     ClassRating.createRating(restaurant.id, rating)
                 }
             }
         }
 
-//        widgetSlider.onFocusChangeListener = View.OnFocusChangeListener() { view, b ->
-//
-//            Log.d("slider change 1", rating.toString())
-//            if(b){
-//                Log.d("slider change 2", rating.toString())
-//                rating = widgetSlider.values.get(0)
-//                if(rating == -1f){
-//                    Log.d("slider change 3", rating.toString())
-//                }
-//            }
-//        }
         if (rating != -1f){
             isAlreadyRated = true
             widgetSlider.values = listOf(rating)
+            ratingTextView.setText(rating.toString())
             widgetSlider.isEnabled = false
         }
 

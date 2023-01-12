@@ -23,7 +23,7 @@ class ClassRestaurant(
         val db = Firebase.firestore
 
         fun restaurantFromHashmap(restaurantHashmap : kotlin.collections.HashMap<String, *>) : ClassRestaurant{
-            Log.d("restauranthashmap", restaurantHashmap.toString())
+//            Log.d("restauranthashmap", restaurantHashmap.toString())
             return ClassRestaurant(
                 restaurantHashmap.get("id").toString(),
                 restaurantHashmap.get("name").toString(),
@@ -47,7 +47,9 @@ class ClassRestaurant(
 
         suspend fun getRestaurantByName(name : String, threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
 
-            Log.d("inf scroll", "getRestaurantbyname : " + threshold + " " + offset + " " + lastId)
+            var loweredName = name.toLowerCase()
+
+//            Log.d("inf scroll", "getRestaurantbyname : " + threshold + " " + offset + " " + lastId)
 
             var restaurantQuery = db.collection("restaurants")
                 .orderBy("name")
@@ -55,14 +57,14 @@ class ClassRestaurant(
 
             var restaurantsSnapshot = restaurantQuery
                 .limit(threshold+offset)
-                .startAt(name)
-                .endAt(name + '\uf8ff')
+                .startAt(loweredName)
+                .endAt(loweredName + '\uf8ff')
                 .get()
                 .await()
 
             var restaurants : ArrayList<ClassRestaurant> = ArrayList()
             for(restaurantSnapshot in restaurantsSnapshot){
-                Log.d("restaurant", restaurantSnapshot.toString())
+//                Log.d("restaurant", restaurantSnapshot.toString())
                 restaurants.add(
                     restaurantFromSnapshot(restaurantSnapshot)
                 )
@@ -84,7 +86,7 @@ class ClassRestaurant(
         }
 
         suspend fun getRestaurantWithBiggestRating(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
-            Log.d("inf scroll", "getRestaurantWithBiggestRating: " + threshold + " " + offset + " " + lastId)
+//            Log.d("inf scroll", "getRestaurantWithBiggestRating: " + threshold + " " + offset + " " + lastId)
 
             var restaurantQuery = db.collection("restaurants")
                 .orderBy("rating", Query.Direction.DESCENDING)
@@ -92,7 +94,7 @@ class ClassRestaurant(
             if(offset > 0){
 
                 var cursor = db.collection("restaurants").document(lastId).get().await()
-                Log.d("inf scroll", cursor.toString())
+//                Log.d("inf scroll", cursor.toString())
 
                 restaurantQuery = restaurantQuery
                     .startAfter(cursor)
@@ -124,7 +126,7 @@ class ClassRestaurant(
 
         suspend fun getOwnedRestaurantIds() : ArrayList<String>{
 
-            Log.d("transaction get restaurant ids", ClassUser.getCurrentUser()?.id!!)
+//            Log.d("transaction get restaurant ids", ClassUser.getCurrentUser()?.id!!)
             var restaurantsSnapshot = db.collection("restaurants")
                 .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
                 .get()
@@ -132,7 +134,7 @@ class ClassRestaurant(
 
             var restaurantIds : ArrayList<String> = ArrayList()
             for(restaurantSnapshot in restaurantsSnapshot.documents){
-                Log.d("transaction restaurant ", restaurantSnapshot.id)
+//                Log.d("transaction restaurant ", restaurantSnapshot.id)
                 restaurantIds.add(
                     restaurantSnapshot.id
                 )
@@ -141,7 +143,7 @@ class ClassRestaurant(
         }
 
         suspend fun getOwnedRestaurants(threshold : Long, offset : Long, lastId : String) : ArrayList<ClassRestaurant>{
-            Log.d("inf scroll", "get owned restaurants: " + threshold + " " + offset + " " + lastId)
+//            Log.d("inf scroll", "get owned restaurants: " + threshold + " " + offset + " " + lastId)
 
             var restaurantQuery = db.collection("restaurants")
                 .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
@@ -149,7 +151,7 @@ class ClassRestaurant(
             if(offset > 0){
 
                 var cursor = db.collection("restaurants").document(lastId).get().await()
-                Log.d("inf scroll", cursor.toString())
+//                Log.d("inf scroll", cursor.toString())
 
                 restaurantQuery = restaurantQuery
                     .startAfter(cursor)
@@ -173,7 +175,7 @@ class ClassRestaurant(
 
         suspend fun getOwnedRestaurantsByName(name : String, threshold : Long, offset : Long) : ArrayList<ClassRestaurant>{
 
-            Log.d("inf scroll", "getRestaurantbyname : " + threshold + " " + offset)
+            var loweredName = name.toLowerCase()
 //
             var restaurantQuery = db.collection("restaurants")
                 .orderBy("name")
@@ -182,14 +184,14 @@ class ClassRestaurant(
             var restaurantsSnapshot = restaurantQuery
                 .whereEqualTo("ownerId", ClassUser.getCurrentUser()?.id!!)
                 .limit(threshold+offset)
-                .startAt(name)
-                .endAt(name + '\uf8ff')
+                .startAt(loweredName)
+                .endAt(loweredName + '\uf8ff')
                 .get()
                 .await()
 
             var restaurants : ArrayList<ClassRestaurant> = ArrayList()
             for(restaurantSnapshot in restaurantsSnapshot){
-                Log.d("restaurant", restaurantSnapshot.toString())
+//                Log.d("restaurant", restaurantSnapshot.toString())
                 restaurants.add(
                     restaurantFromSnapshot(restaurantSnapshot)
                 )

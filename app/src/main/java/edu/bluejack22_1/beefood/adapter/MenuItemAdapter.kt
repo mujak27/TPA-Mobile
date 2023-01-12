@@ -17,12 +17,13 @@ import edu.bluejack22_1.beefood.model.ClassMenu
 import edu.bluejack22_1.beefood.model.ClassRestaurant
 import edu.bluejack22_1.beefood.model.ClassUser
 import kotlinx.coroutines.runBlocking
+import org.w3c.dom.Text
 
 class MenuItemAdapter(
     private val restaurantId : String,
     private val menus : ArrayList<ClassMenu>,
-    private val onAddCart : (id : String)->Unit,
-    private val onRemoveCart : (id : String)->Unit,
+    private val onAddCart : (id : String, countText : TextView)->Unit,
+    private val onRemoveCart : (id : String, countText : TextView)->Unit,
     private val onSelectPhoto : (position : Int, id : String, imageView : ImageView)->Unit,
 ) : RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
 
@@ -44,6 +45,7 @@ class MenuItemAdapter(
         var title : TextView
         var addButton : Button
         var removeButton : Button
+        var countText : TextView
 
         var widgetEditName : EditText
         var widgetEditPrice : EditText
@@ -63,6 +65,7 @@ class MenuItemAdapter(
             layoutCustomer = itemView.findViewById(R.id.menu_view)
             widgetSelectPhotoButton = itemView.findViewById<Button>(R.id.button_select_photo)
             widgetEditMenuButton = itemView.findViewById<Button>(R.id.edit_menu_button)
+            countText = itemView.findViewById(R.id.item_menu_count)
 
             imageView = itemView.findViewById(R.id.menu_photo)
             widgetEditName = itemView.findViewById(R.id.edit_menu_name)
@@ -76,10 +79,10 @@ class MenuItemAdapter(
         holder.id = currMenu.id
         holder.title.setText(currMenu.name)
         holder.addButton.setOnClickListener{
-            onAddCart(currMenu.id)
+            onAddCart(currMenu.id, holder.countText)
         }
         holder.removeButton.setOnClickListener{
-            onRemoveCart(currMenu.id)
+            onRemoveCart(currMenu.id, holder.countText)
         }
 
 
@@ -90,11 +93,9 @@ class MenuItemAdapter(
             onUpdate(holder)
         }
 
-        Log.d("update menu price", currMenu.price.toString())
         holder.widgetEditName.setText(currMenu.name)
         holder.widgetEditPrice.setText(currMenu.price.toString())
         val role = ClassUser.getCurrentUser()?.role!!
-        Log.d("transaction check role", role)
         if(role == "Seller"){
             holder.layoutCustomer.visibility = View.GONE
         }else{

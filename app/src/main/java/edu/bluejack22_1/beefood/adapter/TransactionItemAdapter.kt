@@ -58,12 +58,12 @@ class TransactionItemAdapter(
             }
             if (snapshot != null && snapshot.exists()) {
                 var status = snapshot.data?.get("status").toString()
-                holder.widgetStatus.setText(status)
-                Log.d("transaction update status", status)
+//                holder.widgetStatus.setText(status)
+
+                holder.widgetStatus.setText(ClassTransaction.translateTransactionStatus(status, context))
 //                Log.d()
 
                 if(isSeller && status == "cooking"){
-                    Log.d("transaction update visiblity", "visible")
                     holder.widgetButton.visibility = View.VISIBLE
                     holder.widgetButton.setOnClickListener {
                         runBlocking { ClassTransaction.updateTransactionStatus(currTransaction.id) }
@@ -74,7 +74,6 @@ class TransactionItemAdapter(
                     holder.widgetSenderName.visibility = View.VISIBLE
 
                     val senderId = snapshot.data?.get("senderId").toString()
-                    Log.d("transaction get user sender", senderId)
                     if(senderId != null && senderId != "" && senderId.toString() != "null"){
                         var user = runBlocking { ClassUser.getUserById(senderId) }
                         holder.widgetSenderName.text = user?.name
@@ -84,12 +83,11 @@ class TransactionItemAdapter(
 
 
             } else {
-                holder.widgetStatus.setText("not found")
+//                holder.widgetStatus.setText()
             }
         }
 
         holder.widgetTransaction.setOnClickListener{
-            Log.d("transaction clicked", currTransaction.id)
             val intent = Intent(this.context, TransactionDetail::class.java)
             intent.putExtra("transactionId", currTransaction.id)
             this.context.startActivity(intent)

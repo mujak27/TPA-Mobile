@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
-            android:text="login"
+            android:text="@string/login"
             android:backgroundTint="@color/pink_p_darker"
             />
 
@@ -72,7 +72,7 @@
             android:id="@+id/redirectRegisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="register"
+            android:text="@string/register"
             android:backgroundTint="@color/pink_p_darker"
             android:layout_margin="10dp"
             />
@@ -90,12 +90,6 @@
             android:text="@string/forgot"
             android:backgroundTint="@color/pink_p_darker"
             android:layout_margin="10dp"/>
-
-        <!--            <fragment-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                class="edu.bluejack22_1.beefood.auth.GoogleLoginFragment"-->
-        <!--                />-->
 
     </LinearLayout>
 

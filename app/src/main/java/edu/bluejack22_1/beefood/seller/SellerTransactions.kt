@@ -20,8 +20,8 @@ class SellerTransactions : AppCompatActivity() {
         tabLayout = findViewById(R.id.layout_viewpager)
         viewPager = findViewById(R.id.seller_viewpager)
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(SellerFragmentPast(), "past")
-        adapter.addFragment(SellerFragmentActive(), "active")
+        adapter.addFragment(SellerFragmentPast(), getString(R.string.past))
+        adapter.addFragment(SellerFragmentActive(), getString(R.string.ongoing))
 
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)

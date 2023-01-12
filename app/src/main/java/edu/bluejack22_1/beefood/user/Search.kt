@@ -36,9 +36,6 @@ class Search : AppCompatActivity() {
         isLoading = false
         restaurants = arrayListOf()
         loadMore(false)
-//        var searchText = widgetInputSearch.text.toString();
-//        var restaurants = runBlocking { ClassRestaurant.getRestaurantByName(searchText, ) }
-//        Log.d("search restaurant", restaurants.toString())
     }
 
 
