@@ -6,12 +6,15 @@
     tools:context=".user.fragments.CustomerFragmentHome">
 
     <LinearLayout
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
         <Button
-            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/pink_p_darker"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/search"
             android:id="@+id/searchButton"
@@ -20,12 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recyclerViewRestaurant"
-
+            android:padding="15dp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loadingText"
+            android:text="loading"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/grey_dark"
             />
     </LinearLayout>
 
