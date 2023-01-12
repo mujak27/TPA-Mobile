@@ -28,50 +28,67 @@
             android:inputType="number"
             android:textSize="12sp"
             />
+        <Button
+            android:id="@+id/button_select_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_photo"
+            android:backgroundTint="@color/pink_p_darker"/>
+
         <ImageView
             android:id="@+id/menu_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             />
 
-        <Button
-            android:id="@+id/button_select_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_photo" />
 
         <Button
             android:id="@+id/edit_menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"/>
+            android:text="Edit"
+            android:backgroundTint="@color/pink_p_darker"
+            android:layout_gravity="right"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:id="@+id/menu_view">
 
 
         <TextView
             android:id="@+id/item_menu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="menu text"
+            android:layout_marginRight="80dp"
+            android:gravity="center"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="menu text" />
+            >
 
-        <Button
-            android:id="@+id/item_menu_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+" />
+            <Button
+                android:id="@+id/item_menu_remove"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
 
-        <Button
-            android:id="@+id/item_menu_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-" />
+                android:layout_marginRight="10dp"
+                android:text="-" />
+
+            <Button
+                android:id="@+id/item_menu_add"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:layout_gravity="right"/>
+        </LinearLayout>
 
 
     </LinearLayout>
