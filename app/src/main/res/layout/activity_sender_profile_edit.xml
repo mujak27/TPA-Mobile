@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,41 +14,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"/>
-        <TextView
-            android:text="@string/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/edit_profile_name"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:text="@string/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/edit_profile_desc"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/edit_profile_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            />
-        <Button
-            android:id="@+id/edit_upload_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_image"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/border"
+            android:layout_marginTop="20dp"
+            android:padding="20dp">
+            <TextView
+                android:text="@string/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edit_profile_name"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <!--            android:text="@string/upload_image"-->
-        <Button
-            android:id="@+id/sender_edit_profile_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/update"
-            />
-        <!--            android:text="@string/edit_profile"-->
+            <EditText
+                android:id="@+id/edit_profile_desc"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/edit_upload_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/pink_p_darker"
+                android:text="@string/upload_image"/>
+
+            <ImageView
+                android:id="@+id/edit_profile_pic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                />
+            <!--            android:text="@string/upload_image"-->
+            <Button
+                android:id="@+id/sender_edit_profile_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/pink_p_darker"
+                />
+            <!--            android:text="@string/edit_profile"-->
+
+        </LinearLayout>
 
     </LinearLayout>
 
