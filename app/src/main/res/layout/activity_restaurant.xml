@@ -54,7 +54,8 @@
                 android:id="@+id/button_select_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/choose_photo" />
+                android:text="@string/choose_photo"
+                android:backgroundTint="@color/pink_p_darker"/>
             <ImageView
                 android:id="@+id/restaurant_photo"
                 android:layout_width="100dp"
@@ -68,7 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="Edit"
-                android:layout_gravity="right"/>
+                android:layout_gravity="right"
+                android:backgroundTint="@color/pink_p_darker"/>
 
         </LinearLayout>
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         >
 
         <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_marginTop="15dp"
+            >
+
+            <EditText
+                android:id="@+id/input_pickup_data"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="text"
+                android:text="@string/pickup_data"
+                android:layout_marginBottom="15dp"
+                />
+
+            <Button
+                android:id="@+id/button_select_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_photo"
+                android:backgroundTint="@color/pink_p_darker"/>
+            <ImageView
+                android:id="@+id/pickup_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                />
+
             <TextView
                 android:id="@+id/checkout_total_price"
                 android:layout_width="match_parent"
@@ -33,31 +56,14 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 />
-
-            <EditText
-                android:id="@+id/input_pickup_data"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:inputType="text"
-                android:text="@string/pickup_data"
-                />
-
-            <ImageView
-                android:id="@+id/pickup_photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                />
-            <Button
-                android:id="@+id/button_select_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_photo" />
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkout"
+                android:textSize="16sp"
                 android:id="@+id/checkout_button"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/pink_p_darker"
                 />
         </LinearLayout>
 
