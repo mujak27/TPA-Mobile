@@ -10,31 +10,42 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:background="@android:color/holo_orange_light"
+        android:background="@color/pink_primary"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="550dp"
         android:layout_margin="30dp"
         android:background="#d3d3d3"
         app:cardCornerRadius="30dp"
         app:cardElevation="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"
-        tools:layout_editor_absoluteX="30dp">
+        tools:layout_editor_absoluteX="30dp"
+        >
 
         <LinearLayout
+            android:padding="25dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="100dp">
-
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:text="@string/name"
+                android:textSize="18sp"
+                android:layout_gravity="left"
                 />
             <EditText
                 android:id="@+id/input_name"
@@ -44,7 +55,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="email"
+                android:text="@string/email"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="left"
                 />
             <EditText
                 android:id="@+id/input_email"
@@ -55,7 +69,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="pass"
+                android:text="@string/password"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="left"
                 />
             <EditText
                 android:id="@+id/input_pass"
@@ -66,24 +83,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/error_text"
+                android:textColor="@color/red_error"
                 />
             <Button
                 android:id="@+id/registerButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="register"
+                android:backgroundTint="@color/pink_p_darker"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/has_an_account"
+                android:textAlignment="center"
                 />
             <Button
                 android:id="@+id/redirectLoginButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_margin="10dp"
                 android:text="login"
+                android:backgroundTint="@color/pink_p_darker"
                 />
 
             <!--            <fragment-->
