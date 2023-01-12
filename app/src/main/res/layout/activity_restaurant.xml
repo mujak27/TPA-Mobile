@@ -9,49 +9,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/restaurantTitle"
             android:text="adfadf"
+            android:textSize="30sp"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/edit_restaurant"
-        >
-
+            android:background="@drawable/border"
+            android:padding="15dp"
+            >
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
             <EditText
                 android:id="@+id/edit_restaurant_name"
-                android:layout_width="150dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:hint="name"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 />
             <TextView
-                android:layout_marginLeft="300dp"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/error_edit_restaurant"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/restaurant_photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                />
-
+                android:layout_height="wrap_content"
+                android:text="error"
+                android:textColor="@color/red_error"/>
             <Button
                 android:id="@+id/button_select_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/choose_photo" />
+            <ImageView
+                android:id="@+id/restaurant_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+
+                />
+
 
             <Button
                 android:id="@+id/edit_Restaurant_button"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Edit"/>
+                android:text="Edit"
+                android:layout_gravity="right"/>
 
         </LinearLayout>
 
@@ -59,7 +76,8 @@
             android:id="@+id/recyclerViewMenus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:background="@drawable/border"
+            android:layout_marginTop="20dp"
             />
 
 
