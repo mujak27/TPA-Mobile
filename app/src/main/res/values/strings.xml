@@ -56,4 +56,7 @@
     <string name="restaurant">Restaurant :</string>
     <string name="sender">Sender :</string>
     <string name="update_customer">Update Customer</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>

@@ -11,57 +11,85 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:padding="15dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:layout_marginBottom="20dp"
+            android:textSize="30sp"
+            android:textStyle="bold
+"/>
         <EditText
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="@string/email"
+            android:textSize="22sp"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/input_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:textSize="22sp"
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:id="@+id/error_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/red_error"/>
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content"
-            android:text="login" />
+            android:text="login"
+            android:backgroundTint="@color/pink_p_darker"
+            />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/has_an_account" />
+            android:text="@string/has_an_account"
+            android:textAlignment="center"/>
 
         <Button
             android:id="@+id/redirectRegisterButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="register" />
+            android:text="register"
+            android:backgroundTint="@color/pink_p_darker"
+            android:layout_margin="10dp"
+            />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="@string/forgot_your_password" />
 
         <Button
             android:id="@+id/redirectForgotButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/forgot" />
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:text="@string/forgot"
+            android:backgroundTint="@color/pink_p_darker"
+            android:layout_margin="10dp"/>
 
         <!--            <fragment-->
         <!--                android:layout_width="wrap_content"-->

@@ -48,7 +48,6 @@
                 android:id="@+id/error_edit_restaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="error"
                 android:textColor="@color/red_error"/>
             <Button
                 android:id="@+id/button_select_photo"
